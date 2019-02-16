@@ -4,13 +4,33 @@ import Vue from 'vue'
 import App from './App'
 import VueRouter from 'vue-router'
 import routes from './config/routes'
-import api from './config/api'
-import aapi from './config/index'
+import aapi from './config/axios'
 import utils from './utils/fortime'
 import 'bootstrap/dist/css/bootstrap.css'
 
-Vue.prototype.$api=api
-Vue.prototype.$axapi=aapi
+var state={
+	islogin:false,
+	manager:false,
+	identify:{
+        name:'null',
+        email:'null',
+	},
+	login(name,manager,email){
+        this.islogin=true;
+        this.identify.name=name;
+        this.manager=manager;
+        this.identify.email=email;
+	},
+	logout(){
+        this.islogin=false;
+        this.identify.name='null';
+        this.manager=false;
+        this.identify.email='null';
+	}
+}
+
+Vue.prototype.state=state
+Vue.prototype.$axios=aapi
 Vue.prototype.$fortime=utils
 
 Vue.use(VueRouter)

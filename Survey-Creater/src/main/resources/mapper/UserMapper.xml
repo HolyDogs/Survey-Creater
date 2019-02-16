@@ -7,7 +7,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, identify, email, possess
+        id, name, identify, email, possess, password
     </sql>
 
 </mapper>

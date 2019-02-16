@@ -25,7 +25,7 @@
 		methods:{
             get_data:function(params){
             	var v=this;
-            		v.$axapi.get('topics',null,function(r){
+            		v.$axios.get('topics',null,function(r){
             			v.lists=r.data;
             		})
             },

@@ -1,5 +1,5 @@
 // 配置API接口地址
-var root = '/api/v1'
+var root = ''
 // 引用axios
 var axios = require('axios')
 // 自定义判断元素类型JS
@@ -13,7 +13,7 @@ function filterNull (o) {
       delete o[key]
     }
     if (toType(o[key]) === 'string') {
-      o[key] = o[key].trim()
+/*      o[key] = o[key].trim()*/
     } else if (toType(o[key]) === 'object') {
       o[key] = filterNull(o[key])
     } else if (toType(o[key]) === 'array') {
