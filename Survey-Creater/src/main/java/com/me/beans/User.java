@@ -13,7 +13,7 @@ import java.io.Serializable;
  * </p>
  *
  * @author xff
- * @since 2019-02-14
+ * @since 2019-02-22
  */
 public class User extends Model<User> {
 
@@ -27,6 +27,16 @@ public class User extends Model<User> {
     private Integer possess;
     private String password;
 
+    public User(){
+
+    }
+
+    public User(String name, Integer identify, String email,  String password) {
+        this.name = name;
+        this.identify = identify;
+        this.email = email;
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;

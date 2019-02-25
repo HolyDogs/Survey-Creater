@@ -10,6 +10,7 @@ import 'surveyjs-editor/surveyeditor.css';
 
 import * as SurveyKo from "survey-knockout";
 import * as widgets from "surveyjs-widgets";
+import qs from 'qs';
 
 import "inputmask/dist/inputmask/phone-codes/phone.js";
 
@@ -33,11 +34,14 @@ export default {
     }
   },
   mounted () {
-    let editorOptions = { showEmbededSurveyTab: true };
+    let me = this;
+    let editorOptions = { showEmbededSurveyTab: false,showJSONEditorTab:false };
     this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
     this.editor.saveSurveyFunc = function() {
-      console.log(JSON.stringify(this.text));
-    };
+      let params = JSON.stringify(this.text);
+          me.$axios.post('user/createSurvey',qs.stringify({params}),function(r){
+      })
+    };                                  
   }
 }
 </script>

@@ -1,0 +1,21 @@
+ .routerlink{
+margin-right: 8px;
+display:block;
+width:110px;
+height:40px;
+background-color:#333333;
+color:#FFFFFF;
+text-align:center;
+font-size:18px;
+line-height:40px;
+border-radius: 25px;
+border:none;
+box-shadow:none;
+text-decoration: none;
+transition: box-shadow 0.5s;
+-webkit-transition: box-shadow 0.5s;
+}
+
+.routerActive{
+    box-shadow:0px 0px 5px 3px #FF0000;
+} 

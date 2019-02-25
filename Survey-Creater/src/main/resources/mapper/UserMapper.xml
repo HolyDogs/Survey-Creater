@@ -3,11 +3,14 @@
 <mapper namespace="com.me.mapper.UserMapper">
 
     <!-- 开启二级缓存 -->
-    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>
+<!--    <cache type="org.mybatis.caches.ehcache.LoggingEhcache"/>-->
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
         id, name, identify, email, possess, password
     </sql>
 
+    <select id="selectByEmail" parameterType="java.lang.String" resultType="com.me.beans.User">
+        SELECT * FROM USER WHERE EMAIL = #{value}
+    </select>
 </mapper>

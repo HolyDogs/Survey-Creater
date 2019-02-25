@@ -1,8 +1,8 @@
 <template>
   <div>
-    <div class="login">
+    <div class="login" v-bind:style="{height: theight}">
     <myHeader/>  
-    <form class="theform" id="demo_11" autocomplete="off">
+    <form class="theform" autocomplete="off">
         <div class="form-group">
             <input class="form-control" v-model="theform.email" placeholder="email" type="email">
         </div>
@@ -11,14 +11,15 @@
 
         </div>
         <p style="color:red" v-show="pflag">{{message}}</p>
-        <button class="btn btn-success" @click.prevent="login" type="submit">{{loginmessage}}</button>
+        <button class="btn btn-success" @click.passive="login" type="submit">{{loginmessage}}</button>
         &nbsp;&nbsp;
         <button type="reset" class="btn btn-danger">{{reset}}</button>
         &nbsp;&nbsp;
         <button type="button" @click="toRegister" class="btn btn-primary">{{register}}</button>
     </form>
+        <myFooter/>
     </div>
-    <myFooter/>
+
   </div>
 </template>
 
@@ -38,10 +39,14 @@ export default {
           email:"",
           password:"",
        },
-       pflag:false
+       pflag:false,
+       theight:'',
     }
   },
   created() {
+     this.theight=window.innerHeight+'px';
+  },
+  mounted(){
 
   },
   methods: {
@@ -66,9 +71,9 @@ export default {
             }else{
               me.state.login(r.name,r.manager,r.email);
               if(r.manager){
-                me.$router.push({path:''});
+                me.$router.push({path:'/manager/'});
               }else{
-                me.$router.push({path:''});
+                me.$router.push({path:'/user/'});
               }
             }
           });

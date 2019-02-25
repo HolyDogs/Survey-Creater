@@ -1,5 +1,5 @@
 <template>
-  <div class="registerdiv">
+  <div class="registerdiv" v-bind:style="{height: theight}">
     <form class="register-form" id="demo_10" autocomplete="off">
         <div class="form-group">
             <input v-model="rform.email" class="form-control" placeholder="email" type="email">
@@ -15,7 +15,7 @@
             <input v-model="rform.checkcode" class="form-control" placeholder="xxxxxx" type="text" minlength="6" maxlength="6">
         </div>
         <p style="color:red" v-show="pflag">{{message}}</p>
-        <button class="btn btn-success" @click="" type="submit">{{register}}</button>
+        <button class="btn btn-success" @click.passive="registerAction" type="submit">{{register}}</button>
         &nbsp;&nbsp;
         <button type="reset" class="btn btn-danger">{{reset}}</button>
         &nbsp;&nbsp;
@@ -44,12 +44,13 @@ export default {
          email:"",
          name:"",
          password:"",
-         checkcode:""
-       }
+         checkcode:"",
+       },
+       theight:''
     }
   },
   created() {
-
+     this.theight=window.innerHeight+'px';
   },
   mounted(){
 
@@ -78,6 +79,17 @@ export default {
                timer=null;
             }
       	},1000);
+      },
+      registerAction:function(){
+        let me = this;
+        let param=qs.stringify(this.rform);
+        this.$axios.post('register',param,function(r){
+          if(!r.registed){
+            alert(r.message);
+          }else{
+            alert("注册成功");
+          }
+        })
       }
   }
 }

@@ -20,7 +20,7 @@ public class MPGenerator {
             config.setActiveRecord(true) // 是否支持AR模式
                     .setAuthor("xff") // 作者
 /*         .setOutputDir("D:\\workspace_mp\\mp03\\src\\main\\java") // 生成路径*/
-                    .setOutputDir("D:\\survey\\Survey-Creater\\Survey-Creater\\src\\main\\java")
+                    .setOutputDir("T:\\survey\\Survey-Creater\\Survey-Creater\\src\\main\\java")
                     .setFileOverride(true)  // 文件覆盖
                     .setIdType(IdType.AUTO) // 主键策略
                     .setServiceName("%sService")  // 设置生成的service接口的名字的首字母是否为I
