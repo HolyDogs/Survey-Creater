@@ -1,13 +1,13 @@
 import login from '../page/login.vue'
 import register from '@/page/register.vue'
-import content from '../page/content.vue'
+import mySurvey from '../page/content.vue'
 
 import uFrame from '../frame/userFrame.vue'
 import mFrame from '../frame/managerFrame.vue'
 
 import userMain from '../page/user/main.vue'
 import surveyCreater from '../page/user/surveyCreater.vue'
-import mySurvey from '../page/user/mySurvey.vue'
+import result from '../page/user/result.vue'
 
 
 import addUser from '../page/manager/addUser'
@@ -23,8 +23,8 @@ export default[
         component:register
     },
     {
-    	path: '/content/:id',
-    	component:content
+    	path: '/survey/:id',
+    	component:mySurvey
     },
     {
     	path: '/user',
@@ -32,7 +32,7 @@ export default[
     	children: [
     	    {path:'/',component:userMain},
     	    {path:'surveyCreater',component:surveyCreater},
-    	    {path:'mySurvey/:id',component:mySurvey},
+            {path:'result/:id',component:result}
     	]
     },
     {

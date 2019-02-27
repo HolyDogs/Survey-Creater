@@ -1,40 +1,45 @@
 <template>
-  <div>
-    <myHeader></myHeader>
-    <h2 v-text="dat.title"></h2>
-    <p v-if=dat.author>作者：{{dat.author.loginname}}　　发表于：{{$fortime.goodTime(dat.create_at)}}</p>
-    <hr>
-    <article v-html="dat.content"></article>
-    <h3>网友回复：</h3>
-    <ul>
-      <li v-for="i in dat.replies">
-        <p>评论者：{{i.author.loginname}}　　评论于：{{$fortime.goodTime(i.create_at)}}</p>
-        <article v-html="i.content"></article>
-      </li>
-    </ul>
-    <myFooter></myFooter>
+  <div id="surveyContainer">
+
+<!-- <link href="https://surveyjs.azureedge.net/1.0.66/survey.css" type="text/css" rel="stylesheet" /> -->
+    <survey :survey="survey"></survey>
   </div>
 </template>
-<script>
-import myHeader from '../components/header.vue'
-import myFooter from '../components/footer.vue'
-export default {
-  components: { myHeader, myFooter },
-  data () {
-    return {
-      id: this.$route.params.id,
-      dat: {}
+
+<script type="text/javascript">
+import * as Survey from 'survey-vue'
+import 'bootstrap/dist/css/bootstrap.css';
+
+export default{
+    data(){
+      return{
+        survey:'',
+        surveyJSON:''
+      }
+    },
+    methods:{
+        sendDataToServer:function(survey){
+          alert("The results are:" + JSON.stringify(survey.data));
+        },
+        doInit(){
+          let me = this;
+          this.$axios.get('surveys/page',{pageId:this.$route.params.id},function(r){
+            me.surveyJSON=r.data;
+            let mysurvey = new Survey.Model(me.surveyJSON);
+            mysurvey.onComplete.add(me.sendDataToServer);
+            me.survey=mysurvey;
+          });
+        }
+    },
+    created(){
+        Survey.Survey.cssType = "bootstrap";
+        this.doInit();
+        /*let surveyJSON = {"pages":[{"name":"page1","elements":[{"type":"comment","name":"question1","title":"aaa"},{"type":"dropdown","name":"question2","choices":["item1","item2","item3"]}]},{"name":"page2","elements":[{"type":"radiogroup","name":"question3","choices":["item1","item2","item3"]}]},{"name":"page3","elements":[{"type":"matrix","name":"question4","columns":["Column 1","Column 2","Column 3"],"rows":["Row 1","Row 2"]}]}],"maxTimeToFinishPage":10,"showTimerPanel":"top"};*/
+
+        let mysurvey = new Survey.Model(this.surveyJSON);
+        mysurvey.onComplete.add(this.sendDataToServer);
+        this.survey=mysurvey;
+
     }
-  },
-  created () {
-    this.getData()
-  },
-  methods: {
-    getData () {
-      this.$axapi.get('topic/' + this.id, null, r => {
-        this.dat = r.data
-      })
-    }
-  }
 }
 </script>

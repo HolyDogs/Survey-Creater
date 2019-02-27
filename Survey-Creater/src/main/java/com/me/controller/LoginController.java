@@ -35,7 +35,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public HashMap login(@RequestParam("email")String email, @RequestParam("password")String password) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public HashMap login(@RequestParam("email")String email, @RequestParam("password")String password,HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         System.out.println(email);
         User user=userService.loginCheck(email,password);
         HashMap<String,Object> hashMap=new HashMap<>(16);
@@ -51,6 +51,7 @@ public class LoginController {
         hashMap.put("ismanager",user.getIdentify().equals(0));
         hashMap.put("email",user.getEmail());
         hashMap.put("name",user.getName());
+        session.setAttribute("userid",user.getId());
 
         return hashMap;
         /*writer.write("success!!");*/

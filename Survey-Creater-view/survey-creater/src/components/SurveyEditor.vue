@@ -36,10 +36,17 @@ export default {
   mounted () {
     let me = this;
     let editorOptions = { showEmbededSurveyTab: false,showJSONEditorTab:false };
+    let pageid = me.$forCrypto.forCrypto(me.state.identify.email);
     this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
     this.editor.saveSurveyFunc = function() {
       let params = JSON.stringify(this.text);
-          me.$axios.post('user/createSurvey',qs.stringify({params}),function(r){
+          me.$axios.post('user/createSurvey',qs.stringify({"params":params,"pageid":pageid}),function(r){
+            if(r.rSuccess){
+              alert("创建成功，即将跳转到实现页面，复制该地址分享给您想要参与调查的人群");
+              me.$router.push({path:'/survey/'+pageid});
+            }else{
+              alert("您已有其他调查项目，请结束后再创建新的调查或者重新登陆再试");
+            }
       })
     };                                  
   }

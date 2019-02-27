@@ -21,7 +21,7 @@ public class MPGenerator {
                     .setAuthor("xff") // 作者
 /*         .setOutputDir("D:\\workspace_mp\\mp03\\src\\main\\java") // 生成路径*/
                     .setOutputDir("T:\\survey\\Survey-Creater\\Survey-Creater\\src\\main\\java")
-                    .setFileOverride(true)  // 文件覆盖
+                    .setFileOverride(false)  // 文件覆盖
                     .setIdType(IdType.AUTO) // 主键策略
                     .setServiceName("%sService")  // 设置生成的service接口的名字的首字母是否为I
                     // IEmployeeService  .setBaseResultMap(true)
@@ -38,7 +38,7 @@ public class MPGenerator {
             stConfig.setCapitalMode(true) //全局大写命名
                     .setDbColumnUnderline(true)  // 指定表名 字段名是否使用下划线
                     .setNaming(NamingStrategy.underline_to_camel) // 数据库表映射到实体的命名策略
-                    .setInclude("user")       ;
+                    .setInclude("surveys")       ;
   /*.setTablePrefix("tbl_")
  .setInclude("tbl_employee");  // 生成的表*/       //4. 包名策略配置
             PackageConfig pkConfig = new PackageConfig();
