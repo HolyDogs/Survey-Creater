@@ -1,7 +1,8 @@
 <template>
   <div id="surveyContainer">
 
-<!-- <link href="https://surveyjs.azureedge.net/1.0.66/survey.css" type="text/css" rel="stylesheet" /> -->
+    <link href="https://surveyjs.azureedge.net/1.0.66/survey.css" type="text/css" rel="stylesheet" />
+    <link type="text/css" rel="stylesheet" src="../style/survey.vue.min.js" />
     <survey :survey="survey"></survey>
   </div>
 </template>
@@ -32,7 +33,7 @@ export default{
         }
     },
     created(){
-        Survey.Survey.cssType = "bootstrap";
+/*        Survey.Survey.cssType = "bootstrap";*/
         this.doInit();
         /*let surveyJSON = {"pages":[{"name":"page1","elements":[{"type":"comment","name":"question1","title":"aaa"},{"type":"dropdown","name":"question2","choices":["item1","item2","item3"]}]},{"name":"page2","elements":[{"type":"radiogroup","name":"question3","choices":["item1","item2","item3"]}]},{"name":"page3","elements":[{"type":"matrix","name":"question4","columns":["Column 1","Column 2","Column 3"],"rows":["Row 1","Row 2"]}]}],"maxTimeToFinishPage":10,"showTimerPanel":"top"};*/
 

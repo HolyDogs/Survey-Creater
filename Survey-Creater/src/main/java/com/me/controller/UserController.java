@@ -1,17 +1,23 @@
 package com.me.controller;
 
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.me.beans.ReturnMessage;
 import com.me.beans.Surveys;
 import com.me.beans.User;
 import com.me.service.SurveysService;
 import com.me.service.UserService;
-import org.apache.commons.lang.StringEscapeUtils;
+import com.me.utils.JSONStrUtils;
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 /**
  * <p>
@@ -37,11 +43,21 @@ public class UserController {
         /*        String mypage=page.replaceAll("\\\\n","");
         mypage=mypage.replaceAll(" ","");*/
 
-        page=page.replaceFirst("\"","");
-        page=page.substring(0,page.length()-1);
-        page= StringEscapeUtils.unescapeJava(page);
+        page= JSONStrUtils.forJsonStr(page);
 
-        if(surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageid)) != null){
+        System.out.println(page);
+
+        HashMap surveyMap = JSONStrUtils.forSurveyMessage(page);
+
+/*
+        //测试map里的值
+        Iterator iterator = surveyMap.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry entry = (Map.Entry) iterator.next();
+            System.out.println(entry.getKey()+"============"+entry.getValue());
+        }*/
+
+        /*if(surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageid)) != null){
             return new ReturnMessage(true,false);
         }
 
@@ -51,6 +67,8 @@ public class UserController {
             return new ReturnMessage(true,false);
         }
 
+
+
         Surveys surveys=new Surveys();
         surveys.setUserid(sessionUserId);
         surveys.setPageid(pageid);
@@ -59,9 +77,9 @@ public class UserController {
 
         User user = userService.selectById(sessionUserId);
         user.setPossess(1);
-        userService.updateById(user);
+        userService.updateById(user);*/
 
-        /*JSONObject jsonObject= JSONObject.parseObject(page);*/
+
         return new ReturnMessage(true, true);
     }
 
