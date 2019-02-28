@@ -16,7 +16,7 @@ public class MysqlTypeTransferUtils {
     public static HashMap transfer(HashMap<String,String> map){
         HashMap<String,String> newMap = new HashMap<>(64);
         Iterator iterator = map.entrySet().iterator();
-        if (iterator.hasNext()){
+        while (iterator.hasNext()){
             Map.Entry entry = (Map.Entry) iterator.next();
             switch ((String)entry.getValue()){
                 case "text":
@@ -46,6 +46,6 @@ public class MysqlTypeTransferUtils {
                     break;
             }
         }
-        return null;
+        return newMap;
     }
 }

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.me.mapper.TableControllerMapper">
+
+    <select id="existTable" parameterType="java.lang.String" resultType="java.lang.Integer">
+        select count(*)
+        from information_schema.TABLES
+        where LCASE(table_name) = #{tableName}
+    </select>
+
+    <update id="createNewTable">
+        CREATE TABLE ${myMap.theTableName}(
+          id int(10) PRIMARY KEY AUTO_INCREMENT NOT NULL
+          <foreach collection="myMap" index="key" item="value">
+              <if test="key.toString() != 'theTableName'.toString()">
+                  ,${key} ${value}
+              </if>
+          </foreach>
+        );
+    </update>
+
+    <update id="dropTable">
+        DROP TABLE ${tablename}
+    </update>
+
+    
+
+</mapper>

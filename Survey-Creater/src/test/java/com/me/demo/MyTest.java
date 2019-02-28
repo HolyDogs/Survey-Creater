@@ -1,13 +1,17 @@
 package com.me.demo;
 
 import com.me.beans.User;
+import com.me.mapper.TableControllerMapper;
+import com.me.mapper.UserMapper;
 import com.me.security.Md5Utils;
+import com.me.service.TableService;
 import com.me.service.UserService;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
 
 /**
  * @ClassName MyTest
@@ -18,7 +22,7 @@ import java.security.NoSuchAlgorithmException;
  **/
 public class MyTest extends DemoApplicationTests{
 
-    @Autowired
+ /*   @Autowired
     UserService userService;
 
     @Test
@@ -29,5 +33,23 @@ public class MyTest extends DemoApplicationTests{
         user.setName("小强");
         user.setPassword(Md5Utils.EncodePassword("123"));
         userService.insert(user);
+    }*/
+
+    @Autowired
+    TableService tableService;
+
+    @Test
+    public void myTest(){
+
+        tableService.dropTable("dsafakshfdksahlfhdashdfh");
+/*
+        HashMap<String,String> mymap = new HashMap<>();
+        mymap.put("theTableName","dsafakshfdksahlfhdashdfh");
+        mymap.put("text","text");
+        mymap.put("username","varchar(10)");
+        mymap.put("ididiid","int");
+        tableService.createTable(mymap);
+*/
+
     }
 }

@@ -1,23 +1,20 @@
 package com.me.controller;
 
-
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.me.beans.ReturnMessage;
 import com.me.beans.Surveys;
 import com.me.beans.User;
 import com.me.service.SurveysService;
+import com.me.service.TableService;
 import com.me.service.UserService;
 import com.me.utils.JSONStrUtils;
-import org.apache.commons.collections.bag.SynchronizedSortedBag;
+import com.me.utils.MysqlTypeTransferUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
+
 
 /**
  * <p>
@@ -35,6 +32,8 @@ public class UserController {
     private SurveysService surveysService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private TableService tableService;
 
     @PostMapping("/createSurvey")
     @ResponseBody
@@ -47,7 +46,6 @@ public class UserController {
 
         System.out.println(page);
 
-        HashMap surveyMap = JSONStrUtils.forSurveyMessage(page);
 
 /*
         //测试map里的值
@@ -57,7 +55,7 @@ public class UserController {
             System.out.println(entry.getKey()+"============"+entry.getValue());
         }*/
 
-        /*if(surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageid)) != null){
+        if(surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageid)) != null){
             return new ReturnMessage(true,false);
         }
 
@@ -67,8 +65,6 @@ public class UserController {
             return new ReturnMessage(true,false);
         }
 
-
-
         Surveys surveys=new Surveys();
         surveys.setUserid(sessionUserId);
         surveys.setPageid(pageid);
@@ -77,12 +73,14 @@ public class UserController {
 
         User user = userService.selectById(sessionUserId);
         user.setPossess(1);
-        userService.updateById(user);*/
+        userService.updateById(user);
 
+        HashMap surveyMap = JSONStrUtils.forSurveyMessage(page);
+        HashMap mysqlMap = MysqlTypeTransferUtils.transfer(surveyMap);
+        mysqlMap.put("theTableName",pageid);
+        tableService.createTable(mysqlMap);
 
         return new ReturnMessage(true, true);
     }
-
-
 }
 
