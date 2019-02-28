@@ -24,4 +24,6 @@ public interface TableService {
      * @return Result<void>
      */
     void dropTable(String tableName);
+
+    void insertData(HashMap hashMap,String tableName);
 }

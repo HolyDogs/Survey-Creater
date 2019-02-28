@@ -23,6 +23,16 @@
         DROP TABLE ${tablename}
     </update>
 
-    
+    <insert id="insertData">
+        INSERT INTO ${tableName}(
+          <foreach collection="dataMap" index="key" separator=",">
+              ${key}
+          </foreach>
+        )  VALUES(
+          <foreach collection="dataMap" item="value" separator=",">
+              #{value}
+          </foreach>
+        )
+    </insert>
 
 </mapper>

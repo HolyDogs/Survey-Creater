@@ -38,28 +38,15 @@ public class UserController {
     @PostMapping("/createSurvey")
     @ResponseBody
     public ReturnMessage createSurvey(@RequestParam("params")String page,@RequestParam("pageid")String pageid, HttpSession session){
-
-        /*        String mypage=page.replaceAll("\\\\n","");
-        mypage=mypage.replaceAll(" ","");*/
-
+        final String PAGEID_STR = "pageid";
+        final String USERID_STR = "userid";
         page= JSONStrUtils.forJsonStr(page);
 
-        System.out.println(page);
-
-
-/*
-        //测试map里的值
-        Iterator iterator = surveyMap.entrySet().iterator();
-        while(iterator.hasNext()){
-            Map.Entry entry = (Map.Entry) iterator.next();
-            System.out.println(entry.getKey()+"============"+entry.getValue());
-        }*/
-
-        if(surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageid)) != null){
+        if(surveysService.selectOne(new EntityWrapper<Surveys>().eq(PAGEID_STR,pageid)) != null){
             return new ReturnMessage(true,false);
         }
 
-        Integer sessionUserId=(Integer) session.getAttribute("userid");
+        Integer sessionUserId=(Integer) session.getAttribute(USERID_STR);
 
         if(sessionUserId==null){
             return new ReturnMessage(true,false);

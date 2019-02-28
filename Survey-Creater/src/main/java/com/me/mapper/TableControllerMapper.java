@@ -33,4 +33,13 @@ public interface TableControllerMapper {
      * @return Result<Integer>
      */
     Integer existTable(@Param(value = "tableName") String tableName);
+
+    /**
+     * fetch data by rule id
+     *
+     * @param dataMap map for data
+     * @param tableName name of table
+     * @return Result<void>
+     */
+    void insertData(@Param(value = "dataMap") HashMap dataMap, @Param(value = "tableName") String tableName);
 }

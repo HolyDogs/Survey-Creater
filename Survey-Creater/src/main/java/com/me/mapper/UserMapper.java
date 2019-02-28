@@ -16,5 +16,11 @@ import java.util.List;
  */
 @Mapper
 public interface UserMapper extends BaseMapper<User> {
+    /**
+     * fetch data by rule id
+     *
+     * @param email
+     * @return Result<User>
+     */
     User selectByEmail(String email);
 }

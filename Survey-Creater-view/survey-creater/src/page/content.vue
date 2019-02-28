@@ -1,6 +1,5 @@
 <template>
   <div id="surveyContainer">
-
     <link href="https://surveyjs.azureedge.net/1.0.66/survey.css" type="text/css" rel="stylesheet" />
     <link type="text/css" rel="stylesheet" src="../style/survey.vue.min.js" />
     <survey :survey="survey"></survey>
@@ -9,8 +8,8 @@
 
 <script type="text/javascript">
 import * as Survey from 'survey-vue'
-import 'bootstrap/dist/css/bootstrap.css';
-
+import 'bootstrap/dist/css/bootstrap.css'
+import qs from 'qs'
 export default{
     data(){
       return{
@@ -20,11 +19,16 @@ export default{
     },
     methods:{
         sendDataToServer:function(survey){
-          alert("The results are:" + JSON.stringify(survey.data));
+          let me = this;
+          let params = JSON.stringify(survey.data);
+          console.log(JSON.stringify(survey.data));
+          this.$axios.post('surveys/commit',qs.stringify({"params":params,"tableId":me.$route.params.id}),function(){
+
+          });
         },
         doInit(){
           let me = this;
-          this.$axios.get('surveys/page',{pageId:this.$route.params.id},function(r){
+          this.$axios.get('surveys/page',{pageId:me.$route.params.id},function(r){
             me.surveyJSON=r.data;
             let mysurvey = new Survey.Model(me.surveyJSON);
             mysurvey.onComplete.add(me.sendDataToServer);

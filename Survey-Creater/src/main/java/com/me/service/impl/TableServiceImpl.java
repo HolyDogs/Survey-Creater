@@ -37,4 +37,12 @@ public class TableServiceImpl implements TableService {
             tableMapper.dropTable(tableName);
         }
     }
+
+    @Override
+    public void insertData(HashMap hashMap, String tableName) {
+        Integer flag = tableMapper.existTable(tableName);
+        if (flag > 0){
+            tableMapper.insertData(hashMap,tableName);
+        }
+    }
 }

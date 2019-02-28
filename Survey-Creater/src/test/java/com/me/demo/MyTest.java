@@ -38,18 +38,25 @@ public class MyTest extends DemoApplicationTests{
     @Autowired
     TableService tableService;
 
+    @Autowired
+    TableControllerMapper tableControllerMapper;
+
     @Test
     public void myTest(){
 
-        tableService.dropTable("dsafakshfdksahlfhdashdfh");
-/*
+/*        tableService.dropTable("dsafakshfdksahlfhdashdfh");*/
         HashMap<String,String> mymap = new HashMap<>();
         mymap.put("theTableName","dsafakshfdksahlfhdashdfh");
         mymap.put("text","text");
         mymap.put("username","varchar(10)");
         mymap.put("ididiid","int");
         tableService.createTable(mymap);
-*/
+
+        HashMap<String ,String> dataMap = new HashMap<>();
+        dataMap.put("text","哈哈哈");
+        dataMap.put("username","tomtom");
+        String tableName = "dsafakshfdksahlfhdashdfh";
+        tableControllerMapper.insertData(dataMap,tableName);
 
     }
 }
