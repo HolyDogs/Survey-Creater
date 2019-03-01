@@ -4,7 +4,7 @@
             <div class="row clearfix">
                 <div class="col-md-12 column">
                     <div style="text-align: center;" class="jumbotron">
-                        <h1>
+                        <h1 v-if=name>
                             欢迎:{{name}},请按照如下的步骤使用该系统
                         </h1>
 
@@ -32,12 +32,13 @@
     export default{
         data(){
             return{
-                name:this.state.identify.name,
+                name:'',
                 theHeight:window.innerHeight+'px'
             }
         },
-        created:function(){
+        mounted:function(){
             var me = this;
+            this.name = this.state.identify.name;
 /*            if(!me.state.islogin){
                 me.$router.push({path:"/"});
             }*/

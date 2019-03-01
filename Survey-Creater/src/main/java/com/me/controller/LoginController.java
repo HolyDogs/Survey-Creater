@@ -1,13 +1,14 @@
 package com.me.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.fasterxml.jackson.databind.util.JSONPObject;
-import com.me.beans.EmailMessage;
+import com.me.config.EmailMessage;
 import com.me.beans.ReturnMessage;
 import com.me.beans.User;
 import com.me.security.Md5Utils;
+import com.me.security.TokenCreater;
 import com.me.service.UserService;
 import com.me.utils.CheckCodeUtills;
+import com.me.utils.RedisUtil;
 import com.me.utils.SendEmailUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,6 +33,8 @@ public class LoginController {
 
     @Autowired
     private UserService userService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @RequestMapping("/login")
     @ResponseBody
@@ -53,6 +56,11 @@ public class LoginController {
         hashMap.put("name",user.getName());
         session.setAttribute("userid",user.getId());
 
+        //创建token返回并存入redis数据库，设置过期时间为半小时
+        String token = TokenCreater.createJWT(email,user.getPassword(),user.getName(),86400000);
+        redisUtil.set(email,token,86400);
+
+        hashMap.put("token",token);
         return hashMap;
         /*writer.write("success!!");*/
     }

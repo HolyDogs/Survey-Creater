@@ -1,6 +1,6 @@
 <template>
   <div>
-  		<h1>{{md5str}}</h1>
+  		<h1>{{data}}</h1>
   </div>
 </template>
 
@@ -8,11 +8,11 @@
 	export default{
 		data(){
 			return{
-				md5str:"" 
+				data:''
 			}
 		},
 		created(){
-            this.md5str=this.$forCrypto.forCrypto("null");
+            this.$axios.post('resultGet')
 		},
 		methods:{
             

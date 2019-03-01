@@ -38,4 +38,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             }
         }
     }
+
+    @Override
+    public Integer selectIdByEmail(String email) {
+        return userMapper.selectByEmail(email).getId();
+    }
 }

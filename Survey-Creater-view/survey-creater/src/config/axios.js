@@ -22,6 +22,22 @@ function filterNull (o) {
   }
   return o
 }
+
+//请求拦截器
+axios.interceptors.request.use(function(config){
+  const token = localStorage.getItem('token');
+  token?config.headers.Authorization=token:null;
+  return config;
+})
+
+//回复拦截器
+axios.interceptors.response.use(function(res){
+  if(res.data.res_code === 401){
+    alert("身份错误,重新登陆");
+    localStorage.removeItem('token')
+  }
+  return res;
+})
 /*
   接口处理函数
   这个函数每个项目都是不一样的，我现在调整的是适用于

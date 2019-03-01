@@ -1,4 +1,4 @@
-package com.me.beans;
+package com.me.config;
 
 /**
  * @ClassName EmailMessage

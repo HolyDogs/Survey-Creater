@@ -10,7 +10,7 @@ import surveyCreater from '../page/user/surveyCreater.vue'
 import result from '../page/user/result.vue'
 
 
-import addUser from '../page/manager/addUser'
+import manageUser from '../page/manager/manageUser'
 import selectUser from '../page/manager/selectUser'
 
 export default[
@@ -34,13 +34,28 @@ export default[
     	    {path:'surveyCreater',component:surveyCreater},
             {path:'result/:id',component:result}
     	]
+
+        /*,
+        beforeEnter:(to,from,next) => {
+            if(this.state.islogin && !(this.state.manager)){
+                next();
+            }else{
+                alert("xxxxxxx")
+            }
+        }*/
     },
     {
         path: '/manager',
         component: mFrame,
         children: [
-            {path:'/',component:addUser},
+            {path:'/',component:manageUser},
             {path:'/selectUser',component:selectUser}
         ]
+
+        /*,
+        beforeEnter:(to,from,next) => {
+            alert("NO!!!!!!!")
+        }*/
     }
+
 ]

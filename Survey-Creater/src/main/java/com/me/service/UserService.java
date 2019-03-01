@@ -27,4 +27,12 @@ public interface UserService extends IService<User> {
      * @throws NoSuchAlgorithmException xx
      */
     User loginCheck(String email,String password) throws UnsupportedEncodingException, NoSuchAlgorithmException;
+
+    /**
+     * fetch data by rule id
+     *
+     * @param email email
+     * @return Result<User>
+     */
+    Integer selectIdByEmail(String email);
 }

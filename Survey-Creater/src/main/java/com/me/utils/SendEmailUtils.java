@@ -1,8 +1,11 @@
 package com.me.utils;
 
-import com.me.beans.EmailMessage;
+import com.me.config.EmailMessage;
 import com.me.beans.Mymail;
 
+/**
+ * @author fenghere
+ */
 public class SendEmailUtils {
 
 	public static int sendEmails(String body,String addr) {

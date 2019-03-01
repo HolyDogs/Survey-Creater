@@ -1,7 +1,5 @@
 <template>
   <div id="surveyContainer">
-    <link href="https://surveyjs.azureedge.net/1.0.66/survey.css" type="text/css" rel="stylesheet" />
-    <link type="text/css" rel="stylesheet" src="../style/survey.vue.min.js" />
     <survey :survey="survey"></survey>
   </div>
 </template>
@@ -48,3 +46,5 @@ export default{
     }
 }
 </script>
+
+<style type="text/css" src="../style/survey.css"></style>

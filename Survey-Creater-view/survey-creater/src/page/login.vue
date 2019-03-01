@@ -62,6 +62,7 @@ export default {
         this.$router.push({path:'/register'});
       },
       login:function(){
+          localStorage.removeItem('token');
           let me=this;
           let params=qs.stringify(this.theform);
           this.$axios.post('login',params,function(r){
@@ -69,7 +70,8 @@ export default {
               alert("邮箱或密码错误");
               me.$router.push({path:'/'});
             }else{
-              me.state.login(r.name,r.manager,r.email);
+              me.state.login(r.name,r.ismanager,r.email);
+              localStorage.setItem('token',r.token);
               if(r.manager){
                 me.$router.push({path:'/manager/'});
               }else{

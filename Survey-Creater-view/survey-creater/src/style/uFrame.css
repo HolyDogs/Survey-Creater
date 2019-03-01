@@ -19,3 +19,30 @@ transition: box-shadow 0.5s;
 .routerActive{
     box-shadow:0px 0px 5px 3px #FF0000;
 } 
+
+.userDiv {
+    position: absolute;
+    right: 50px; 
+    top: 10px;
+    z-index: 9999
+}
+
+
+
+.logoutbtn {
+    position: absolute;
+    left: 10px; 
+    top: 5px;
+    z-index: 9999;
+    position: absolute;
+    display:block;
+    background-color:#232132;
+    color:#FFFFFF;
+    font-size:18px;
+    border-radius: 30px;
+    border:none;
+    box-shadow:none;
+    text-decoration: none;
+    transition: box-shadow 0.5s;
+    -webkit-transition: box-shadow 0.5s;
+}

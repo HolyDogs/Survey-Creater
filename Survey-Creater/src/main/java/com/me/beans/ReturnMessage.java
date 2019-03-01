@@ -1,6 +1,8 @@
 package com.me.beans;
 
-public class ReturnMessage {
+import java.io.Serializable;
+
+public class ReturnMessage implements Serializable {
     public Boolean success;
     public Boolean rSuccess;
     public String data;

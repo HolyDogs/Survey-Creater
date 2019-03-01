@@ -9,11 +9,14 @@ import com.me.service.TableService;
 import com.me.service.UserService;
 import com.me.utils.JSONStrUtils;
 import com.me.utils.MysqlTypeTransferUtils;
+import com.me.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpSession;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 
 /**
@@ -34,6 +37,8 @@ public class UserController {
     private UserService userService;
     @Autowired
     private TableService tableService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @PostMapping("/createSurvey")
     @ResponseBody
@@ -62,7 +67,13 @@ public class UserController {
         user.setPossess(1);
         userService.updateById(user);
 
-        HashMap surveyMap = JSONStrUtils.forSurveyMessage(page);
+        HashMap<String, String> surveyMap = JSONStrUtils.forSurveyMessage(page);
+        Iterator iterator = surveyMap.entrySet().iterator();
+        while(iterator.hasNext()){
+            Map.Entry entry = (Map.Entry) iterator.next();
+            redisUtil.hset(pageid, (String) entry.getKey(),entry.getValue());
+        }
+
         HashMap mysqlMap = MysqlTypeTransferUtils.transfer(surveyMap);
         mysqlMap.put("theTableName",pageid);
         tableService.createTable(mysqlMap);

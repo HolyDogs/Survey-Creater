@@ -84,10 +84,11 @@ export default {
         let me = this;
         let param=qs.stringify(this.rform);
         this.$axios.post('register',param,function(r){
-          if(!r.registed){
+          if(!r.isRegisted){
             alert(r.message);
           }else{
             alert("注册成功");
+            me.$router.push({path:'/'})
           }
         })
       }

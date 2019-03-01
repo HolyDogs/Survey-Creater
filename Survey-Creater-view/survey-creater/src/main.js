@@ -41,6 +41,25 @@ const router = new VueRouter({
 	routes
 })
 
+router.beforeEach(function(to,from,next){
+  let reguser = new RegExp("^/user");
+  let regmanager = new RegExp("^/manager");
+  let me = this;
+  if(reguser.test(to.path) || regmanager.test(to.path)){
+    if(localStorage.getItem('token')){
+      next();
+    }else{
+      alert("请登录");
+      next({
+        path:'/'
+      })
+    }
+  }else{
+    next();
+  }
+
+})
+
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

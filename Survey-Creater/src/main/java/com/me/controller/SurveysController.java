@@ -8,6 +8,7 @@ import com.me.beans.Surveys;
 import com.me.service.SurveysService;
 import com.me.service.TableService;
 import com.me.utils.JSONResultFormatterUtils;
+import com.me.utils.RedisUtil;
 import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -32,10 +33,13 @@ public class SurveysController {
     private SurveysService surveysService;
     @Autowired
     private TableService tableService;
+    @Autowired
+    private RedisUtil redisUtil;
 
     @GetMapping("/page")
     @ResponseBody
     public ReturnMessage returnPage(@RequestParam("pageId")String pageId){
+
         Surveys surveys = surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageId));
         if(surveys == null){
             return new ReturnMessage(false);
@@ -48,7 +52,7 @@ public class SurveysController {
     @PostMapping("/commit")
     @ResponseBody
     public ReturnMessage commitResult(@RequestParam("params")String result,@RequestParam("tableId") String tableId){
-        HashMap rMap = JSONResultFormatterUtils.forResult(result);
+        HashMap rMap = JSONResultFormatterUtils.forResult(result,redisUtil,tableId);
         tableService.insertData(rMap,tableId);
         return new ReturnMessage(true);
     }
