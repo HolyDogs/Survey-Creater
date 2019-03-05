@@ -14,7 +14,7 @@ var state={
 	manager:false,
 	identify:{
         name:'null',
-        email:'null',
+        email:'',
 	},
 	login(name,manager,email){
         this.islogin=true;
@@ -26,7 +26,7 @@ var state={
         this.islogin=false;
         this.identify.name='null';
         this.manager=false;
-        this.identify.email='null';
+        this.identify.email='';
 	}
 }
 

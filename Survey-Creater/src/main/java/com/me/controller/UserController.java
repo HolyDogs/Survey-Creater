@@ -42,7 +42,7 @@ public class UserController {
 
     @PostMapping("/createSurvey")
     @ResponseBody
-    public ReturnMessage createSurvey(@RequestParam("params")String page,@RequestParam("pageid")String pageid, HttpSession session){
+    public ReturnMessage createSurvey(@RequestParam("params")String page,@RequestParam("pageid")String pageid, HttpSession session ,@RequestHeader("Authorization")String token){
         final String PAGEID_STR = "pageid";
         final String USERID_STR = "userid";
         page= JSONStrUtils.forJsonStr(page);
@@ -71,7 +71,9 @@ public class UserController {
         Iterator iterator = surveyMap.entrySet().iterator();
         while(iterator.hasNext()){
             Map.Entry entry = (Map.Entry) iterator.next();
-            redisUtil.hset(pageid, (String) entry.getKey(),entry.getValue());
+            if(!entry.getValue().equals("html") && !entry.getValue().equals("expression") && !entry.getValue().equals("panel")){
+                redisUtil.hset(pageid, (String) entry.getKey(),entry.getValue());
+            }
         }
 
         HashMap mysqlMap = MysqlTypeTransferUtils.transfer(surveyMap);
@@ -80,5 +82,7 @@ public class UserController {
 
         return new ReturnMessage(true, true);
     }
+
+
 }
 

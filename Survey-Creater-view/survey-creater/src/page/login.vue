@@ -1,23 +1,23 @@
 <template>
   <div>
     <div class="login" v-bind:style="{height: theight}">
-    <myHeader/>  
-    <form class="theform" autocomplete="off">
-        <div class="form-group">
-            <input class="form-control" v-model="theform.email" placeholder="email" type="email">
-        </div>
-        <div class="form-group">
-            <input @change="changePw" v-model="theform.password" class="form-control" placeholder="密码" type="password" maxlength="8">
+      <myHeader/>  
+      <form class="theform" autocomplete="off">
+          <div class="form-group">
+              <input class="form-control" v-model="theform.email" placeholder="email" type="email">
+          </div>
+          <div class="form-group">
+              <input @change="changePw" v-model="theform.password" class="form-control" placeholder="密码" type="password" maxlength="8">
 
-        </div>
-        <p style="color:red" v-show="pflag">{{message}}</p>
-        <button class="btn btn-success" @click.passive="login" type="submit">{{loginmessage}}</button>
-        &nbsp;&nbsp;
-        <button type="reset" class="btn btn-danger">{{reset}}</button>
-        &nbsp;&nbsp;
-        <button type="button" @click="toRegister" class="btn btn-primary">{{register}}</button>
-    </form>
-        <myFooter/>
+          </div>
+          <p style="color:red" v-show="pflag">{{message}}</p>
+          <button class="btn btn-success" @click.passive="login" type="submit">{{loginmessage}}</button>
+          &nbsp;&nbsp;
+          <button type="reset" class="btn btn-danger">{{reset}}</button>
+          &nbsp;&nbsp;
+          <button type="button" @click="toRegister" class="btn btn-primary">{{register}}</button>
+      </form>
+      <myFooter/>
     </div>
 
   </div>

@@ -4,6 +4,7 @@ import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author fenghere
@@ -42,4 +43,23 @@ public interface TableControllerMapper {
      * @return Result<void>
      */
     void insertData(@Param(value = "dataMap") HashMap dataMap, @Param(value = "tableName") String tableName);
+
+    /**
+     * fetch data by rule id
+     *
+     * @param headMap map for head
+     * @param start start page
+     * @param tableName name of table
+     * @param finish finish page
+     * @return Result<void>
+     */
+    List<HashMap<String,Object>> selectPage(@Param(value = "tableName")String tableName, @Param(value = "myMap") HashMap headMap, @Param(value = "start") int start,@Param(value = "finish") int finish);
+
+    /**
+     * fetch data by rule id
+     *
+     * @param tableName name of table
+     * @return Result<void>
+     */
+    Integer selectTotal(@Param(value = "tableName") String tableName);
 }

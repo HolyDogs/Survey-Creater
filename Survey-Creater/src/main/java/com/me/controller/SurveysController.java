@@ -41,8 +41,9 @@ public class SurveysController {
     public ReturnMessage returnPage(@RequestParam("pageId")String pageId){
 
         Surveys surveys = surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageId));
+
         if(surveys == null){
-            return new ReturnMessage(false);
+            return new ReturnMessage(true);
         }
 /*        String data =  StringEscapeUtils.escapeJava(surveys.getContent()) ;*/
         String data = surveys.getContent();

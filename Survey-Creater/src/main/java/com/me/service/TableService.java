@@ -1,6 +1,10 @@
 package com.me.service;
 
+import com.me.beans.Page;
+import org.apache.ibatis.annotations.Param;
+
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @Description -> TODO
@@ -25,5 +29,21 @@ public interface TableService {
      */
     void dropTable(String tableName);
 
+    /**
+     * dropTable
+     *
+     * @param hashMap zz
+     * @param tableName tableName
+     * @return Result<void>
+     */
     void insertData(HashMap hashMap,String tableName);
+
+    /**
+     * dropTable
+     *
+     * @param headMap zz
+     * @param tableName tableName
+     * @return Result<Page>
+     */
+    Page selectPage(String tableName, HashMap headMap, int current);
 }

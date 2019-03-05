@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @ClassName MyTest
@@ -45,7 +46,8 @@ public class MyTest extends DemoApplicationTests{
     public void myTest(){
 
 /*        tableService.dropTable("dsafakshfdksahlfhdashdfh");*/
-        HashMap<String,String> mymap = new HashMap<>();
+
+/*        HashMap<String,String> mymap = new HashMap<>();
         mymap.put("theTableName","dsafakshfdksahlfhdashdfh");
         mymap.put("text","text");
         mymap.put("username","varchar(10)");
@@ -56,7 +58,23 @@ public class MyTest extends DemoApplicationTests{
         dataMap.put("text","哈哈哈");
         dataMap.put("username","tomtom");
         String tableName = "dsafakshfdksahlfhdashdfh";
-        tableControllerMapper.insertData(dataMap,tableName);
+        tableControllerMapper.insertData(dataMap,tableName);*/
 
+/*        HashMap<String,Object> hashMap = new HashMap();
+        hashMap.put("id",null);
+        hashMap.put("name",null);
+        hashMap.put("email",null);
+        List list = tableControllerMapper.selectPage("user",hashMap,1,3);
+        list.stream().forEach(System.out::println);*/
+
+        int i = 0;
+        int d = 99;
+        while (i<20) {
+            HashMap<String, Object> hashMap = new HashMap<>();
+            hashMap.put("question1", i++);
+            hashMap.put("question2", d-- + "哈哈哈");
+
+            tableService.insertData(hashMap, "4f9a79ea26010ea5bbd65169ef483dd8");
+        }
     }
 }

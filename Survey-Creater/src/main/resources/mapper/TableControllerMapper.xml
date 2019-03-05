@@ -35,4 +35,16 @@
         )
     </insert>
 
+    <select id="selectPage" resultType="java.util.HashMap">
+        SELECT
+        <foreach collection="myMap" index="key" separator=",">
+            ${key}
+        </foreach>
+        FROM ${tableName} LIMIT #{start},#{finish}
+    </select>
+
+    <select id="selectTotal" resultType="java.lang.Integer">
+        SELECT count(id) FROM ${tableName}
+    </select>
+
 </mapper>
