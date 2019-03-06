@@ -46,4 +46,14 @@ public interface TableService {
      * @return Result<Page>
      */
     Page selectPage(String tableName, HashMap headMap, int current);
+
+    /**
+     * dropTable
+     *
+     * @param item
+     * @param column zz
+     * @param tableName tableName
+     * @return Result<Page>
+     */
+    Integer selectItemCount(String tableName,String column,String item);
 }

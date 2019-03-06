@@ -47,4 +47,8 @@
         SELECT count(id) FROM ${tableName}
     </select>
 
+    <select id="selectItemCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ${tableName} WHERE ${column} = #{item}
+    </select>
+
 </mapper>

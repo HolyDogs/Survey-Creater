@@ -84,4 +84,15 @@ public class TableServiceImpl implements TableService {
 
         return page;
     }
+
+    @Override
+    public Integer selectItemCount(String tableName, String column, String item) {
+        Integer flag = tableMapper.existTable(tableName);
+        if (flag <= 0){
+            return 0;
+        }
+        return tableMapper.selectItemCount(tableName,column,item);
+    }
+
+
 }

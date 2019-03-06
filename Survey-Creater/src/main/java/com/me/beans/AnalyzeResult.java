@@ -1,5 +1,7 @@
 package com.me.beans;
 
+import java.util.List;
+
 /**
  * @ClassName AnalyzeResult
  * @Description TODO
@@ -9,16 +11,16 @@ package com.me.beans;
  **/
 public class AnalyzeResult {
     public Boolean success;
-    public Integer[] count;
+    public List<Integer> count;
     public String type;
     public String title;
     public String name;
-    public String items;
+    public List<String> items;
     public AnalyzeResult(Boolean flag){
         this.success = flag;
     }
 
-    public AnalyzeResult(Boolean success, Integer[] count, String type, String title, String name, String items) {
+    public AnalyzeResult(Boolean success, List<Integer> count, String type, String title, String name, List<String> items) {
         this.success = success;
         this.count = count;
         this.type = type;

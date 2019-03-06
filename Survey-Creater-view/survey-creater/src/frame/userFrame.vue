@@ -32,10 +32,10 @@
                     me.$router.push({path:'/manager/'})
                 }
             }
+            this.pageid=this.$forCrypto.forCrypto(me.state.identify.email);
         },
         mounted(){
-            const me = this;
-            this.pageid=this.$forCrypto.forCrypto(me.state.identify.email);
+
         },
         methods:{
             logout:function(){

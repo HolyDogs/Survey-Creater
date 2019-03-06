@@ -1,6 +1,9 @@
 package com.me.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.me.beans.AnalyzeResult;
 import com.me.beans.Page;
 import com.me.beans.ReturnMessage;
 import com.me.beans.Surveys;
@@ -73,9 +76,41 @@ public class ResultController {
 
     @GetMapping("/analyzeQuestion")
     @ResponseBody
-    public ReturnMessage analyzeQuestions(@RequestParam("pageId") String pageId,@RequestParam("question")String question, @RequestHeader("Authorization")String token){
-        System.out.println(pageId+"========="+question);
-        return new ReturnMessage(true);
+    public AnalyzeResult analyzeQuestions(@RequestParam("pageId") String pageId, @RequestParam("question")String question, @RequestHeader("Authorization")String token){
+
+        List<Integer> count = new ArrayList<>(16);
+        String type = "";
+        String title = "";
+        String name = "人数";
+        List<String> items = new ArrayList<>(16);
+
+        String content = surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageId)).getContent();
+        List<JSONObject> jlist = AnalyzeUtils.parsePage(content);
+        Iterator itor = jlist.iterator();
+        while (itor.hasNext()){
+            JSONObject jsonObject = (JSONObject) itor.next();
+            if (question.equals(jsonObject.getString("name"))){
+                title = (jsonObject.getString("title")==null ? question:jsonObject.getString("title"));
+                type = AnalyzeUtils.typeAnalyze(jsonObject.getString("type"));
+
+                if (type.equals("bar")){
+                    JSONArray jsonArray = jsonObject.getJSONArray("choices");
+                    Iterator itorItem = jsonArray.iterator();
+                    while(itorItem.hasNext()){
+                        JSONObject jObject = (JSONObject) itorItem.next();
+                        String text = jObject.getString("text");
+                        if (text == null){
+                            items.add(jObject.getString("value"));
+                        }else {
+                            items.add(text);
+                        }
+                        count.add(tableService.selectItemCount(pageId,question,jObject.getString("value")));
+                    }
+                }
+
+            }
+        }
+        return new AnalyzeResult(true,count,type,title,name,items);
     }
 
 }

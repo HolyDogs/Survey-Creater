@@ -1,9 +1,12 @@
 package com.me.demo;
 
 import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.me.security.TokenCreater;
 import org.junit.Test;
+
+import java.util.Iterator;
 
 /**
  * @ClassName ArrayToStringTest
@@ -31,5 +34,31 @@ public class ArrayToStringTest {
         System.out.println(token);
 
         TokenCreater.parseJWT(token);
+    }
+
+    @Test
+    public void cc(){
+        String jsonStr = "[\n" +
+                "      {\n" +
+                "       \"value\": \"item1\",\n" +
+                "       \"text\": \"撒旦发生短发\"\n" +
+                "      },\n" +
+                "      {\n" +
+                "       \"value\": \"item2\",\n" +
+                "       \"text\": \"啊多发点\"\n" +
+                "      },\n" +
+                "      \"item3\"\n" +
+                "     ]";
+
+        JSONArray jsonArray = JSONArray.parseArray(jsonStr);
+        Iterator iterator = jsonArray.iterator();
+        while(iterator.hasNext()){
+            Object o = iterator.next();
+            if(o instanceof JSONObject){
+                System.out.println(o.toString());
+            }else {
+                System.out.println(o.toString());
+            }
+        }
     }
 }

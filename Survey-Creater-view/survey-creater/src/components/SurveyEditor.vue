@@ -35,7 +35,7 @@ export default {
   },
   mounted () {
     let me = this;
-    let editorOptions = { showEmbededSurveyTab: false,showJSONEditorTab:false };
+    let editorOptions = { showEmbededSurveyTab: false,showJSONEditorTab:true };
     let pageid = me.$forCrypto.forCrypto(me.state.identify.email);
     this.editor = new SurveyEditor.SurveyEditor('surveyEditorContainer', editorOptions);
     this.editor.saveSurveyFunc = function() {
