@@ -2,7 +2,14 @@ package com.me.beans;
 
 import java.io.Serializable;
 import java.util.HashMap;
+import java.util.List;
 
+/**
+ * @Description -> 这是一个用来封装各种返回对象的类
+ * @Author -> xufeng
+ * @Data ->
+ * @about ->
+ **/
 public class ReturnMessage implements Serializable {
     public Boolean success;
     public Boolean rSuccess;
@@ -10,6 +17,8 @@ public class ReturnMessage implements Serializable {
     public int res_code;
     public HashMap map;
     public Page page;
+    public List<String> qlist;
+
     public ReturnMessage(Boolean flag){
         this.success=flag;
     }
@@ -37,6 +46,11 @@ public class ReturnMessage implements Serializable {
     public ReturnMessage(Boolean flag,Page page){
         this.success = true;
         this.page = page;
+    }
+
+    public ReturnMessage(Boolean flag,List list){
+        this.success = flag;
+        this.qlist = list;
     }
 
 

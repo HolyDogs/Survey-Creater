@@ -1,7 +1,7 @@
 <template>
   <div class="resultDiv">
   	<div class="tableDiv" v-if="bflag">
-                <table class="table">
+                <table class="table table-striped table-bordered">
                     <thead>
                         <tr>
                             <th v-for="(vv,head) in headList">
@@ -34,7 +34,9 @@
     </div>
     <div class="btnDiv">
         <button v-if="!bflag" @click="selectAll" class="btn btn-block btn-info">查询所有结果</button><br/>
-        <button v-if="dflag" class="btn btn-block btn-info" @click="deleteSurvey">删除已有项目</button><br/>    
+        <button v-if="bflag" @click="analyze" class="btn btn-block btn-warning">可视化分析</button><br/>
+        <button v-if="dflag" class="btn btn-block btn-danger" @click="deleteSurvey">删除已有项目</button><br/>  
+
     </div>
 
   </div>
@@ -88,9 +90,8 @@
             selectPage:function(url,params){
                     let me = this;
                     me.$axios.get(url,params,function(r){
-                    if(r.rflag){
+                    if(r.rSuccess){
                         alert("未创建项目");
-                        return;
                     }else{
                         me.current = r.page.current;
                         me.pages = r.page.pages;
@@ -101,6 +102,12 @@
                         me.data = r.page.list;
                     }
                 })
+            },
+            analyze:function(){
+                let me = this;
+                me.$router.push({path:'/user/analyze',query:{
+                    pageid:me.$route.params.id
+                }})
             }
 		}
 	}
@@ -109,12 +116,12 @@
 <style type="text/css">
     .resultDiv {
         text-align: center;
-        margin-top: 50px; 
+        margin-top: 150px; 
     }
 
     .pagination {
         margin:0 auto;
-        padding-left: 40%;
+        left: 
     }
 
     .btn {
@@ -123,13 +130,15 @@
     }
 
     .btn-inverse {
-        margin-left: 10px
+        margin-left: 10px;
+        left: 50%;
+        top: 50%;
     }
 
     .btnDiv {
         text-align: center;
         vertical-align: middle;
-        padding-top: 50px;
+        padding-top: 100px;
     }
 
     .tableDiv {

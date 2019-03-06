@@ -74,8 +74,6 @@ public class TableServiceImpl implements TableService {
             list = (ArrayList<HashMap<String, Object>>) tableMapper.selectPage(tableName,headMap,start,over);
         }
 
-
-
         page.setCurrent(current);
         page.setHasNext(hasNext);
         page.setHasPrevious(hasPre);
