@@ -14,6 +14,7 @@
 // 引入基本模板
 let echarts = require('echarts/lib/echarts')
 // 引入柱状图组件
+require('echarts/lib/chart/pie')
 require('echarts/lib/chart/bar')
 // 引入提示框和title组件
 require('echarts/lib/component/tooltip')
@@ -33,11 +34,12 @@ export default {
       items:'',
       name:'',
       type:'',
-      count:''
+      count:'',
+      myChart:''
     }
   },
   mounted() {
-
+      this.myChart = echarts.init(document.getElementById('myChart'));
   },
   created() {
     let me = this;
@@ -51,10 +53,63 @@ export default {
     })
   },
   methods: {
+    drawpie() {
+        let me = this;
+        let myChart = me.myChart;
+
+          let option = {
+            title:{ text: me.title},
+            tooltip:{},
+            backgroundColor: '#2c343c',
+            visualMap: {
+                show: false,
+                min: 80,
+                max: 600,
+                inRange: {
+                    colorLightness: [0, 1]
+                }
+            },
+            series : [
+                {
+                    name: '人数',
+                    type: me.type,
+                    radius: '55%',
+                    data:me.items,
+                    roseType: 'angle',
+                    label: {
+                        normal: {
+                            textStyle: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            }
+                        }
+                    },
+                    labelLine: {
+                        normal: {
+                            lineStyle: {
+                                color: 'rgba(255, 255, 255, 0.3)'
+                            }
+                        }
+                    },
+                    itemStyle: {
+                        normal: {
+                            shadowBlur: 200,
+                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                        }
+                    }
+                }
+            ]
+        };
+
+        myChart.setOption(option);
+
+    },
     drawLine() {
         let me = this;
       // 基于准备好的dom，初始化echarts实例
-      let myChart = echarts.init(document.getElementById('myChart'))
+      let myChart = me.myChart;
+
+    /*  */
+
       // 绘制图表
       myChart.setOption({
         title: { text: me.title },
@@ -68,7 +123,7 @@ export default {
           name: me.name,
           type: me.type,
           data: me.count
-        }]
+        }],
       });
     },
     getAnalyze() {
@@ -79,14 +134,22 @@ export default {
             me.name = r.name;
             me.type = r.type;
             me.count = r.count;
-            me.drawLine();
+            if(me.type == "bar"){
+                me.drawLine();
+            }else{
+                me.items = r.data;
+                me.drawpie();
+            }
+            me.myChart.hideLoading();
         });
     },
     startClick() {
+        this.myChart.showLoading();
         this.startFlag = !this.startFlag;
         this.getAnalyze();
     },
     forLeft:function(){
+        this.myChart.showLoading();
         this.num = this.num - 1;
         this.rightFlag = false;
         if(this.num <= 0){
@@ -95,6 +158,7 @@ export default {
         this.getAnalyze();
     },
     forRight:function(){
+        this.myChart.showLoading();
         this.num = this.num + 1;
         this.leftFlag = false;
         if(this.num >= (this.size-1)){

@@ -91,6 +91,10 @@ public class TableServiceImpl implements TableService {
         if (flag <= 0){
             return 0;
         }
+
+        if (item==null){
+            return tableMapper.selectItemCountIsNull(tableName,column);
+        }
         return tableMapper.selectItemCount(tableName,column,item);
     }
 

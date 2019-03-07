@@ -72,4 +72,13 @@ public interface TableControllerMapper {
      * @return Result<void>
      */
     Integer selectItemCount(@Param(value = "tableName")String tableName ,@Param(value = "column")String column, @Param(value = "item")String item);
+
+    /**
+     * fetch data by rule id
+     *
+     * @param tableName name of table
+     * @param column
+     * @return Result<void>
+     */
+    Integer selectItemCountIsNull(@Param(value = "tableName")String tableName ,@Param(value = "column")String column);
 }

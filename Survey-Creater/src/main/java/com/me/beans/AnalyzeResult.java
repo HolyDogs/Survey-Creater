@@ -1,5 +1,6 @@
 package com.me.beans;
 
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -16,6 +17,8 @@ public class AnalyzeResult {
     public String title;
     public String name;
     public List<String> items;
+    public List<HashMap<String,Object>> data;
+
     public AnalyzeResult(Boolean flag){
         this.success = flag;
     }
@@ -28,4 +31,12 @@ public class AnalyzeResult {
         this.name = name;
         this.items = items;
     }
+
+    public AnalyzeResult(Boolean success, String type, String title, List<HashMap<String, Object>> data){
+        this.success = success;
+        this.type = type;
+        this.title = title;
+        this.data = data;
+    }
+
 }

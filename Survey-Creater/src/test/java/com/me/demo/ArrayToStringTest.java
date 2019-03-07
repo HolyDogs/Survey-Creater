@@ -6,7 +6,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.me.security.TokenCreater;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 
 /**
  * @ClassName ArrayToStringTest
@@ -61,4 +64,15 @@ public class ArrayToStringTest {
             }
         }
     }
+
+    @Test
+    public void dd(){
+        List mylist = new ArrayList();
+        HashMap hashMap;
+        int i=0;
+        while(i<5){
+
+        }
+    }
+
 }

@@ -22,20 +22,22 @@
             }
         },
         created(){
+
+
+        },
+        mounted(){
             let me = this;
             if(!me.state.islogin){
                 me.$axios.get('tokenCheck',null,function(r){
                     me.state.login(r.name,false,r.id);
+                    me.pageid=me.$forCrypto.forCrypto(me.state.identify.email);
                 })
             }else{
                 if(me.state.manager){
                     me.$router.push({path:'/manager/'})
                 }
             }
-            this.pageid=this.$forCrypto.forCrypto(me.state.identify.email);
-        },
-        mounted(){
-
+            me.pageid=me.$forCrypto.forCrypto(me.state.identify.email);
         },
         methods:{
             logout:function(){

@@ -51,4 +51,8 @@
         SELECT COUNT(*) FROM ${tableName} WHERE ${column} = #{item}
     </select>
 
+    <select id="selectItemCountIsNull" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ${tableName} WHERE ${column} IS NULL
+    </select>
+
 </mapper>

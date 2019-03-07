@@ -78,11 +78,13 @@ public class ResultController {
     @ResponseBody
     public AnalyzeResult analyzeQuestions(@RequestParam("pageId") String pageId, @RequestParam("question")String question, @RequestHeader("Authorization")String token){
 
-        List<Integer> count = new ArrayList<>(16);
+        List<Integer> count ;
         String type = "";
         String title = "";
         String name = "人数";
-        List<String> items = new ArrayList<>(16);
+        List<String> items ;
+        List<HashMap<String,Object>> data;
+        HashMap<String,Object> bmap;
 
         String content = surveysService.selectOne(new EntityWrapper<Surveys>().eq("pageid",pageId)).getContent();
         List<JSONObject> jlist = AnalyzeUtils.parsePage(content);
@@ -94,6 +96,8 @@ public class ResultController {
                 type = AnalyzeUtils.typeAnalyze(jsonObject.getString("type"));
 
                 if (type.equals("bar")){
+                    count = new ArrayList<>(16);
+                    items = new ArrayList<>(16);
                     JSONArray jsonArray = jsonObject.getJSONArray("choices");
                     Iterator itorItem = jsonArray.iterator();
                     while(itorItem.hasNext()){
@@ -106,11 +110,30 @@ public class ResultController {
                         }
                         count.add(tableService.selectItemCount(pageId,question,jObject.getString("value")));
                     }
+
+                    return new AnalyzeResult(true,count,type,title,name,items);
+                }
+                if (type.equals("pie")){
+                    data = new ArrayList<>(8);
+                    bmap = new LinkedHashMap<>(4);
+                    bmap.put("value",tableService.selectItemCount(pageId,question,null));
+                    bmap.put("name","未选");
+                    data.add(bmap);
+                    bmap = new LinkedHashMap<>(4);
+                    bmap.put("value",tableService.selectItemCount(pageId,question,"0"));
+                    bmap.put("name","否");
+                    data.add(bmap);
+                    bmap = new LinkedHashMap<>(4);
+                    bmap.put("value",tableService.selectItemCount(pageId,question,"1"));
+                    bmap.put("name","是");
+                    data.add(bmap);
+
+                    return new AnalyzeResult(true,type,title,data);
                 }
 
             }
         }
-        return new AnalyzeResult(true,count,type,title,name,items);
+        return new AnalyzeResult(true);
     }
 
 }
