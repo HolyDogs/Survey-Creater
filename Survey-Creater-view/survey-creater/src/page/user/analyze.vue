@@ -4,7 +4,8 @@
         <button v-if="startFlag" :disabled="leftFlag" @click="forLeft" class="arrow arrow-left btn-default btn"></button>
         <button v-if="startFlag" :disabled="rightFlag" @click="forRight" class="arrow arrow-right btn-default btn"></button>
         <div class="analyzeDiv">
-            <div class="chart" id="myChart" :style="{width: '500px', height: '500px'}"></div>
+            <div class="chart" id="myChart" v-show="!bar" :style="{width: '500px', height: '500px'}"></div>
+            <div class="chart" id="myChartB" v-show="bar" :style="{width: '500px', height: '500px'}"></div>
         </div>
     </div>
 </template>
@@ -35,11 +36,14 @@ export default {
       name:'',
       type:'',
       count:'',
-      myChart:''
+      myChart:'',
+      myChartB:'',
+      bar:true
     }
   },
   mounted() {
       this.myChart = echarts.init(document.getElementById('myChart'));
+      this.myChartB = echarts.init(document.getElementById('myChartB'));
   },
   created() {
     let me = this;
@@ -55,10 +59,21 @@ export default {
   methods: {
     drawpie() {
         let me = this;
-        let myChart = me.myChart;
 
+        me.bar = false;
           let option = {
-            title:{ text: me.title},
+            title:{ 
+                text: me.title,
+                left:'center',
+                top:'5px',
+                textStyle:{
+                    color:'#ccc',
+                    fontStyle:'normal',
+                    fontWeight:'bold',
+                    fontFamily:'sans-serif',
+            　　　　 fontSize:30
+                }
+            },
             tooltip:{},
             backgroundColor: '#2c343c',
             visualMap: {
@@ -74,7 +89,7 @@ export default {
                     name: '人数',
                     type: me.type,
                     radius: '55%',
-                    data:me.items,
+                    data: me.items,
                     roseType: 'angle',
                     label: {
                         normal: {
@@ -93,25 +108,23 @@ export default {
                     itemStyle: {
                         normal: {
                             shadowBlur: 200,
-                            shadowColor: 'rgba(0, 0, 0, 0.5)'
+                            shadowColor: 'rgba(0, 250, 150, 0.5)'
                         }
                     }
                 }
             ]
         };
 
-        myChart.setOption(option);
+        me.myChart.setOption(option);
 
     },
     drawLine() {
         let me = this;
       // 基于准备好的dom，初始化echarts实例
-      let myChart = me.myChart;
 
-    /*  */
-
+      me.bar = true;
       // 绘制图表
-      myChart.setOption({
+      me.myChartB.setOption({
         title: { text: me.title },
         tooltip: {},
         xAxis: {
@@ -130,11 +143,11 @@ export default {
         let me = this;
         this.$axios.get('analyzeQuestion',{pageId:this.$route.query.pageid,question:this.qlist[this.num]},function(r){
             me.title = r.title;
-            me.items = r.items;
             me.name = r.name;
             me.type = r.type;
             me.count = r.count;
             if(me.type == "bar"){
+                me.items = r.items;
                 me.drawLine();
             }else{
                 me.items = r.data;

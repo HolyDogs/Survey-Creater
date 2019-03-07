@@ -92,6 +92,7 @@ public class ResultController {
         while (itor.hasNext()){
             JSONObject jsonObject = (JSONObject) itor.next();
             if (question.equals(jsonObject.getString("name"))){
+
                 title = (jsonObject.getString("title")==null ? question:jsonObject.getString("title"));
                 type = AnalyzeUtils.typeAnalyze(jsonObject.getString("type"));
 
@@ -101,19 +102,24 @@ public class ResultController {
                     JSONArray jsonArray = jsonObject.getJSONArray("choices");
                     Iterator itorItem = jsonArray.iterator();
                     while(itorItem.hasNext()){
-                        JSONObject jObject = (JSONObject) itorItem.next();
-                        String text = jObject.getString("text");
-                        if (text == null){
-                            items.add(jObject.getString("value"));
-                        }else {
-                            items.add(text);
+                        Object o = itorItem.next();
+                        if (o instanceof JSONObject){
+                            String text = ((JSONObject) o).getString("text");
+                            if (text == null){
+                                items.add(((JSONObject) o).getString("value"));
+                            }else {
+                                items.add(text);
+                            }
+                            count.add(tableService.selectItemCount(pageId,question, ((JSONObject) o).getString("value")));
+                        }else{
+                            items.add(o.toString());
+                            count.add(tableService.selectItemCount(pageId,question,o.toString()));
                         }
-                        count.add(tableService.selectItemCount(pageId,question,jObject.getString("value")));
                     }
-
                     return new AnalyzeResult(true,count,type,title,name,items);
                 }
-                if (type.equals("pie")){
+
+                if (("pie").equals(type)){
                     data = new ArrayList<>(8);
                     bmap = new LinkedHashMap<>(4);
                     bmap.put("value",tableService.selectItemCount(pageId,question,null));
@@ -131,9 +137,50 @@ public class ResultController {
                     return new AnalyzeResult(true,type,title,data);
                 }
 
+                if (("rpie").equals(type) || ("dpie").equals(type)){
+                    data = new ArrayList<>(16);
+                    JSONArray jsonArray = ("rpie").equals(type)?jsonObject.getJSONArray("rateValues"):jsonObject.getJSONArray("choices");
+                    Iterator iterator = jsonArray.iterator();
+                    while (iterator.hasNext()){
+                        Object o = iterator.next();
+                        bmap = new LinkedHashMap<>(4);
+                        if (o instanceof JSONObject){
+                            bmap.put("value",tableService.selectItemCount(pageId,question,((JSONObject) o).getString("value")));
+                            bmap.put("name",((JSONObject) o).getString("text"));
+                        }else {
+                            bmap.put("value",tableService.selectItemCount(pageId,question,o.toString()));
+                            bmap.put("name",o.toString());
+                        }
+                        data.add(bmap);
+                    }
+                    type = "pie";
+                    return new AnalyzeResult(true,type,title,data);
+                }
+
+                if(("cpie").equals(type)){
+                    data = new ArrayList<>(16);
+                    JSONArray jsonArray = jsonObject.getJSONArray("choices");
+                    Iterator iterator = jsonArray.iterator();
+                    while (iterator.hasNext()){
+                        Object o = iterator.next();
+                        bmap = new LinkedHashMap<>(4);
+                        if (o instanceof JSONObject){
+                            bmap.put("value",tableService.selectCountLike(pageId,question,((JSONObject) o).getString("value")));
+                            bmap.put("name",((JSONObject) o).getString("text"));
+                        }else {
+                            bmap.put("value",tableService.selectCountLike(pageId,question,o.toString()));
+                            bmap.put("name",o.toString());
+                        }
+                        data.add(bmap);
+                    }
+                    type = "pie";
+                    return new AnalyzeResult(true,type,title,data);
+                }
             }
         }
         return new AnalyzeResult(true);
     }
+
+
 
 }

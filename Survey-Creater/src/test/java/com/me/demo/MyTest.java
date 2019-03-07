@@ -6,6 +6,7 @@ import com.me.mapper.UserMapper;
 import com.me.security.Md5Utils;
 import com.me.service.TableService;
 import com.me.service.UserService;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -67,7 +68,7 @@ public class MyTest extends DemoApplicationTests{
         List list = tableControllerMapper.selectPage("user",hashMap,1,3);
         list.stream().forEach(System.out::println);*/
 
-        int i = 0;
+/*        int i = 0;
         int d = 99;
         while (i<20) {
             HashMap<String, Object> hashMap = new HashMap<>();
@@ -75,6 +76,13 @@ public class MyTest extends DemoApplicationTests{
             hashMap.put("question2", d-- + "哈哈哈");
 
             tableService.insertData(hashMap, "4f9a79ea26010ea5bbd65169ef483dd8");
-        }
+        }*/
+
+        String str = "\"pages\"";
+        str = StringEscapeUtils.escapeJava(str);
+        System.out.println(str);
+        System.out.println(
+        tableControllerMapper.selectCountLikeItem("surveys","content",str)
+        );
     }
 }

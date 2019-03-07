@@ -56,4 +56,14 @@ public interface TableService {
      * @return Result<Page>
      */
     Integer selectItemCount(String tableName,String column,String item);
+
+    /**
+     * dropTable
+     *
+     * @param item
+     * @param column zz
+     * @param tableName tableName
+     * @return Result<Page>
+     */
+    Integer selectCountLike(String tableName,String column,String item);
 }

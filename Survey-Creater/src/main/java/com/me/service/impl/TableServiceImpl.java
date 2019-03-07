@@ -3,6 +3,7 @@ package com.me.service.impl;
 import com.me.beans.Page;
 import com.me.mapper.TableControllerMapper;
 import com.me.service.TableService;
+import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -96,6 +97,19 @@ public class TableServiceImpl implements TableService {
             return tableMapper.selectItemCountIsNull(tableName,column);
         }
         return tableMapper.selectItemCount(tableName,column,item);
+    }
+
+    @Override
+    public Integer selectCountLike(String tableName, String column, String item) {
+        Integer flag = tableMapper.existTable(tableName);
+        if (flag <= 0){
+            return 0;
+        }
+
+        item = "\""+item+"\"";
+        String realItem = StringEscapeUtils.escapeJava(item);
+
+        return tableMapper.selectCountLikeItem(tableName,column,realItem);
     }
 
 

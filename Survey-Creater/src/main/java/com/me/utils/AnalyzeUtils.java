@@ -53,17 +53,21 @@ public class AnalyzeUtils {
     public static String typeAnalyze(String type){
         switch (type){
             case "radiogroup":
-            case "dropdown":
             case "imagepicker":
                 return "bar";
             case "boolean":
-            case "rating":
                 return "pie";
+            case "rating":
+                return "rpie";
+            case "dropdown":
+                return "dpie";
+            case "checkbox":
+                return "cpie";
             case "matrix":
                 return "折线";
             case "matrixdropdown":
             case "matrixdynamic":
-            case "checkbox":
+                return "三维";
             case "text":
             case "multipletext":
             case "panel":

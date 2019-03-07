@@ -55,4 +55,8 @@
         SELECT COUNT(*) FROM ${tableName} WHERE ${column} IS NULL
     </select>
 
+    <select id="selectCountLikeItem" resultType="java.lang.Integer">
+        SELECT COUNT(*) FROM ${tableName} WHERE ${column} LIKE "%${item}%"
+    </select>
+
 </mapper>
