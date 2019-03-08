@@ -165,16 +165,43 @@ public class ResultController {
                         Object o = iterator.next();
                         bmap = new LinkedHashMap<>(4);
                         if (o instanceof JSONObject){
-                            bmap.put("value",tableService.selectCountLike(pageId,question,((JSONObject) o).getString("value")));
+                            bmap.put("value",tableService.selectCountLike(pageId,question,"\""+((JSONObject) o).getString("value")+"\""));
                             bmap.put("name",((JSONObject) o).getString("text"));
                         }else {
-                            bmap.put("value",tableService.selectCountLike(pageId,question,o.toString()));
+                            bmap.put("value",tableService.selectCountLike(pageId,question,"\""+o.toString()+"\""));
                             bmap.put("name",o.toString());
                         }
                         data.add(bmap);
                     }
                     type = "pie";
                     return new AnalyzeResult(true,type,title,data);
+                }
+
+                if(("line").equals(type)){
+                    items = new ArrayList<>(16);
+                    data =  new ArrayList<>(16);
+                    JSONArray jsonArray = jsonObject.getJSONArray("columns");
+                    JSONArray rowArray = jsonObject.getJSONArray("rows");
+                    Iterator rowItor = rowArray.iterator();
+                    items.add("columns");
+                    while (rowItor.hasNext()){
+                        Object o = rowItor.next();
+                        items.add(o.toString());
+                    }
+                    Iterator iterator = jsonArray.iterator();
+                    while (iterator.hasNext()){
+                        HashMap<String,Object> hashMap = new HashMap<>(16);
+                        Object o = iterator.next();
+                        for(String str : items){
+                            if ("columns".equals(str)){
+                                hashMap.put(str,o.toString());
+                            }else{
+                                hashMap.put(str,tableService.selectCountLike(pageId,question,"\""+str+"\":"+"\""+o.toString()+"\""));
+                            }
+                        }
+                        data.add(hashMap);
+                    }
+                    return new AnalyzeResult(true,type,title,items,data);
                 }
             }
         }

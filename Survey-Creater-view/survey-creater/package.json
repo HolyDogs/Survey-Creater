@@ -16,6 +16,7 @@
     "echarts": "^4.1.0",
     "survey-knockout": "^1.0.66",
     "surveyjs-mod": "^1.0.15",
+    "v-charts": "^1.19.0",
     "vue": "^2.5.2"
   },
   "devDependencies": {

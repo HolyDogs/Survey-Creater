@@ -39,4 +39,12 @@ public class AnalyzeResult {
         this.data = data;
     }
 
+    public AnalyzeResult(Boolean success,String type,String title,List<String> items,List<HashMap<String,Object>> data){
+        this.success = success;
+        this.type = type;
+        this.title = title;
+        this.items = items;
+        this.data = data;
+    }
+
 }

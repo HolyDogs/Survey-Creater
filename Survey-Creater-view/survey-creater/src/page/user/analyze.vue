@@ -4,8 +4,9 @@
         <button v-if="startFlag" :disabled="leftFlag" @click="forLeft" class="arrow arrow-left btn-default btn"></button>
         <button v-if="startFlag" :disabled="rightFlag" @click="forRight" class="arrow arrow-right btn-default btn"></button>
         <div class="analyzeDiv">
-            <div class="chart" id="myChart" v-show="!bar" :style="{width: '500px', height: '500px'}"></div>
+            <div class="chart" id="myChart" v-show="pie" :style="{width: '500px', height: '500px'}"></div>
             <div class="chart" id="myChartB" v-show="bar" :style="{width: '500px', height: '500px'}"></div>
+            <div class="vchart" v-if="vchart"><h4>{{title}}</h4><ve-line class="vchartC" :data="vchartData"></ve-line></div>
         </div>
     </div>
 </template>
@@ -20,9 +21,10 @@ require('echarts/lib/chart/bar')
 // 引入提示框和title组件
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
-
+import VeLine from 'v-charts/lib/line'
 export default {
   name: 'hello',
+  components:{ VeLine },
   data() {
     return {
       startFlag:false,
@@ -38,7 +40,10 @@ export default {
       count:'',
       myChart:'',
       myChartB:'',
-      bar:true
+      vchartData:{},
+      vchart:false,
+      bar:false,
+      pie:false
     }
   },
   mounted() {
@@ -57,10 +62,21 @@ export default {
     })
   },
   methods: {
+    drawMline() {
+      let me = this;
+      me.vchartData = {
+        columns: me.items,
+        rows: me.count
+      };
+      me.bar = false;
+      me.pie = false;
+      me.vchart = true;
+    },
     drawpie() {
         let me = this;
-
+        me.vchart = false;
         me.bar = false;
+        me.pie = true;
           let option = {
             title:{ 
                 text: me.title,
@@ -122,6 +138,8 @@ export default {
         let me = this;
       // 基于准备好的dom，初始化echarts实例
 
+      me.vchart = false;
+      me.pie = false;
       me.bar = true;
       // 绘制图表
       me.myChartB.setOption({
@@ -149,11 +167,16 @@ export default {
             if(me.type == "bar"){
                 me.items = r.items;
                 me.drawLine();
-            }else{
+            }else if(me.type == "pie"){
                 me.items = r.data;
                 me.drawpie();
+            }else if(me.type == "line"){
+                me.count = r.data;
+                me.items = r.items;
+                me.drawMline();
             }
             me.myChart.hideLoading();
+            me.myChartB.hideLoading();
         });
     },
     startClick() {
@@ -162,21 +185,23 @@ export default {
         this.getAnalyze();
     },
     forLeft:function(){
-        this.myChart.showLoading();
         this.num = this.num - 1;
         this.rightFlag = false;
         if(this.num <= 0){
             this.leftFlag = true;
         }
+        this.myChart.showLoading();
+        this.myChartB.showLoading();
         this.getAnalyze();
     },
     forRight:function(){
-        this.myChart.showLoading();
         this.num = this.num + 1;
         this.leftFlag = false;
         if(this.num >= (this.size-1)){
             this.rightFlag = true;
         }
+        this.myChart.showLoading();
+        this.myChartB.showLoading();
         this.getAnalyze();
     }
   }
@@ -197,6 +222,17 @@ export default {
         margin-top: 100px;
         margin-bottom: 0px;
         text-align: center;
+    }
+
+    .vchart{
+        width: 900px;
+        text-align: center;
+        margin-left: 50%;
+        transform: translate(-50%,-0%);
+    }
+
+    .vchartC{
+        width: 900px;
     }
 
     .chart{

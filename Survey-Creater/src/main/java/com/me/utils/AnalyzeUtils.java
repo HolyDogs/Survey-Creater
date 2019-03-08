@@ -64,11 +64,11 @@ public class AnalyzeUtils {
             case "checkbox":
                 return "cpie";
             case "matrix":
-                return "折线";
-            case "matrixdropdown":
+                return "line";
             case "matrixdynamic":
                 return "三维";
             case "text":
+            case "matrixdropdown":
             case "multipletext":
             case "panel":
             case "paneldynamic":

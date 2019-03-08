@@ -106,7 +106,6 @@ public class TableServiceImpl implements TableService {
             return 0;
         }
 
-        item = "\""+item+"\"";
         String realItem = StringEscapeUtils.escapeJava(item);
 
         return tableMapper.selectCountLikeItem(tableName,column,realItem);
