@@ -14,6 +14,7 @@ import analyze from '../page/user/analyze.vue'
 import manageUser from '../page/manager/manageUser'
 import selectUser from '../page/manager/selectUser'
 
+import mytest from '../page/test.vue'
 
 export default[
     {
@@ -27,6 +28,10 @@ export default[
     {
     	path: '/survey/:id',
     	component:mySurvey
+    },
+    {
+        path:'/mytest',
+        component:mytest
     },
     {
     	path: '/user',

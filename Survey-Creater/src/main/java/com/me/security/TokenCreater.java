@@ -55,15 +55,13 @@ public class TokenCreater {
      */
     public static HashMap parseJWT(String jwt) {
         //This line will throw an exception if it is not a signed JWS (as expected)
+
+
         Claims claims = Jwts.parser()
             .setSigningKey(DatatypeConverter.parseBase64Binary("xufeng7788"))
 		    .parseClaimsJws(jwt).getBody();
 
         HashMap<String,String> map = new HashMap<>(16);
-        System.out.println("ID: " + claims.getId());
-        System.out.println("Subject: " + claims.getSubject());
-        System.out.println("Issuer: " + claims.getIssuer());
-        System.out.println("Expiration: " + claims.getExpiration());
 
         map.put("id",claims.getId());
         map.put("name",claims.getSubject());

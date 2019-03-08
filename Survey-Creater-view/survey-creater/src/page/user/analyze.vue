@@ -1,12 +1,15 @@
+<style type="text/css" src="@/style/analyze.css"></style>
+
 <template>
     <div class="maxDiv">
         <BUTTON v-if="!startFlag" @click="startClick" class="btn btn-info btn-start">START</BUTTON>
-        <button v-if="startFlag" :disabled="leftFlag" @click="forLeft" class="arrow arrow-left btn-default btn"></button>
-        <button v-if="startFlag" :disabled="rightFlag" @click="forRight" class="arrow arrow-right btn-default btn"></button>
+        <button v-show="startFlag" class="btn arrow arrow-left" :disabled="leftFlag" @click="forLeft" ></button>
+        <button v-show="startFlag" class="btn arrow arrow-right" :disabled="rightFlag" @click="forRight"></button>
         <div class="analyzeDiv">
             <div class="chart" id="myChart" v-show="pie" :style="{width: '500px', height: '500px'}"></div>
             <div class="chart" id="myChartB" v-show="bar" :style="{width: '500px', height: '500px'}"></div>
-            <div class="vchart" v-if="vchart"><h4>{{title}}</h4><ve-line class="vchartC" :data="vchartData"></ve-line></div>
+            <div class="chart" id="myChartC" v-show="thrd" :style="{width: '700px', height: '700px'}"></div>
+            <div class="vchart" v-if="vchart"><h4>{{title}}</h4><ve-line class="vchartC" :loading="loading" :extend="extend" :data="vchartData"></ve-line></div>
         </div>
     </div>
 </template>
@@ -18,10 +21,15 @@ let echarts = require('echarts/lib/echarts')
 // 引入柱状图组件
 require('echarts/lib/chart/pie')
 require('echarts/lib/chart/bar')
-// 引入提示框和title组件
+require('echarts-gl')
+
+// 组件
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
+require("echarts/lib/component/dataset")
+
 import VeLine from 'v-charts/lib/line'
+
 export default {
   name: 'hello',
   components:{ VeLine },
@@ -40,15 +48,24 @@ export default {
       count:'',
       myChart:'',
       myChartB:'',
+      myChartC:'',
       vchartData:{},
       vchart:false,
       bar:false,
-      pie:false
+      pie:false,
+      thrd:false,
+      extend:{
+        series: {
+            smooth: false
+        }
+      },
+      loading:false
     }
   },
   mounted() {
       this.myChart = echarts.init(document.getElementById('myChart'));
       this.myChartB = echarts.init(document.getElementById('myChartB'));
+      this.myChartC = echarts.init(document.getElementById('myChartC'));
   },
   created() {
     let me = this;
@@ -62,6 +79,84 @@ export default {
     })
   },
   methods: {
+    draw3d() {
+        let me = this;
+        me.vchart = false;
+        me.bar = false;
+        me.pie = false;
+        me.thrd = true;
+            me.myChartC.setOption({
+            title:{ 
+                text: me.title,
+                left:'center',
+                top:'10px',
+                textStyle:{
+                    color:'#ccc',
+                    fontStyle:'normal',
+                    fontWeight:'bold',
+                    fontFamily:'sans-serif',
+            　　　　 fontSize:30
+                }
+            },
+            tooltip:{},
+            grid3D: {},
+            xAxis3D: {
+                // 因为 x 轴和 y 轴都是类目数据，所以需要设置 type: 'category' 保证正确显示数据。
+                type: 'category'
+            },
+            yAxis3D: {
+                type: 'category'
+            },
+            zAxis3D: {
+            },
+            visualMap: {
+                max: 10,
+                dimension: 'number',
+                inRange: {
+                    color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                }
+            },
+            dataset: {
+                dimensions: ['columns', 'choices', 'number'],
+                source: me.items
+            },
+            series: [
+                {
+                    type: 'bar3D',
+                    shading: 'lambert',
+                    symbolSize: 2.5,
+/*                    label: {
+                        show: false,
+                        textStyle: {
+                            fontSize: 16,
+                            borderWidth: 1
+                        }
+                    },*/
+                    itemStyle: {
+                        opacity: 0.85
+                    },
+                    emphasis: {
+                        label: {
+                            textStyle: {
+                                fontSize: 20,
+                                color: '#900'
+                            }
+                        },
+                        itemStyle: {
+                            color: '#900'
+                        }
+                    },
+                    encode: {
+                        // 维度的名字默认就是表头的属性名
+                        x: 'columns',
+                        y: 'choices',
+                        z: 'number',
+                        tooltip: [0,1,2,3,4]
+                    }
+                }
+            ]
+        });
+    },
     drawMline() {
       let me = this;
       me.vchartData = {
@@ -70,11 +165,13 @@ export default {
       };
       me.bar = false;
       me.pie = false;
+      me.thrd = false;
       me.vchart = true;
     },
     drawpie() {
         let me = this;
         me.vchart = false;
+        me.thrd = false;
         me.bar = false;
         me.pie = true;
           let option = {
@@ -94,10 +191,8 @@ export default {
             backgroundColor: '#2c343c',
             visualMap: {
                 show: false,
-                min: 80,
-                max: 600,
                 inRange: {
-                    colorLightness: [0, 1]
+                    colorLightness: [0.5, 1],
                 }
             },
             series : [
@@ -124,7 +219,7 @@ export default {
                     itemStyle: {
                         normal: {
                             shadowBlur: 200,
-                            shadowColor: 'rgba(0, 250, 150, 0.5)'
+                            shadowColor: 'rgba(0, 200, 150, 0.5)'
                         }
                     }
                 }
@@ -139,6 +234,7 @@ export default {
       // 基于准备好的dom，初始化echarts实例
 
       me.vchart = false;
+      me.thrd = false;
       me.pie = false;
       me.bar = true;
       // 绘制图表
@@ -171,16 +267,24 @@ export default {
                 me.items = r.data;
                 me.drawpie();
             }else if(me.type == "line"){
+                me.loading = true;
                 me.count = r.data;
                 me.items = r.items;
                 me.drawMline();
+            }else if(me.type == "3DMap"){
+                me.items = r.data;
+                me.draw3d();
             }
+            me.loading = false;
             me.myChart.hideLoading();
             me.myChartB.hideLoading();
+            me.myChartC.hideLoading();
         });
     },
     startClick() {
         this.myChart.showLoading();
+        this.myChartB.showLoading();
+        this.myChartC.showLoading();
         this.startFlag = !this.startFlag;
         this.getAnalyze();
     },
@@ -192,6 +296,7 @@ export default {
         }
         this.myChart.showLoading();
         this.myChartB.showLoading();
+        this.myChartC.showLoading();
         this.getAnalyze();
     },
     forRight:function(){
@@ -202,61 +307,10 @@ export default {
         }
         this.myChart.showLoading();
         this.myChartB.showLoading();
+        this.myChartC.showLoading();
         this.getAnalyze();
     }
   }
 }
 </script>
 
-<style type="text/css">
-    .maxDiv {
-        text-align: center;
-    }
-
-    .btn-start {
-        font-size: 200px;
-        margin-top: 250px;
-    }
-
-    .analyzeDiv {
-        margin-top: 100px;
-        margin-bottom: 0px;
-        text-align: center;
-    }
-
-    .vchart{
-        width: 900px;
-        text-align: center;
-        margin-left: 50%;
-        transform: translate(-50%,-0%);
-    }
-
-    .vchartC{
-        width: 900px;
-    }
-
-    .chart{
-        left: 50%;
-        top: 50%;
-        transform: translate(-50%,-0%);
-    }
-
-    .arrow{
-        position: absolute; 
-        top: 50%;
-        transform: translate(0,-50%);
-
-    }
-
-    .arrow-left{
-        border: 80px solid transparent;
-        border-right: 100px solid #bb3d6f;
-        left: -0px;
-    }
-
-    .arrow-right{
-        right: -0px;
-        border: 80px solid transparent;
-        border-left: 100px solid #bb3d6f;
-    }
-</style>

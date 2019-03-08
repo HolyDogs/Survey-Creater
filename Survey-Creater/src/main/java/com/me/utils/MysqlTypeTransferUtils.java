@@ -31,7 +31,7 @@ public class MysqlTypeTransferUtils {
                 case "multipletext":
                 case "sortablelist":
                 case "checkbox":
-                    newMap.put((String) entry.getKey(),"VARCHAR(100)");
+                    newMap.put((String) entry.getKey(),"VARCHAR(300)");
                     break;
                 case "file":
                 case "signaturepad":

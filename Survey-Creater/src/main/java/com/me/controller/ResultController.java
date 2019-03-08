@@ -140,6 +140,12 @@ public class ResultController {
                 if (("rpie").equals(type) || ("dpie").equals(type)){
                     data = new ArrayList<>(16);
                     JSONArray jsonArray = ("rpie").equals(type)?jsonObject.getJSONArray("rateValues"):jsonObject.getJSONArray("choices");
+                    if (jsonArray==null){
+                        jsonArray = new JSONArray();
+                        for (int i=1;i<6;i++){
+                            jsonArray.add(i);
+                        }
+                    }
                     Iterator iterator = jsonArray.iterator();
                     while (iterator.hasNext()){
                         Object o = iterator.next();
@@ -165,10 +171,10 @@ public class ResultController {
                         Object o = iterator.next();
                         bmap = new LinkedHashMap<>(4);
                         if (o instanceof JSONObject){
-                            bmap.put("value",tableService.selectCountLike(pageId,question,"\""+((JSONObject) o).getString("value")+"\""));
+                            bmap.put("value",tableService.selectCountLike(pageId,question,"\\\""+((JSONObject) o).getString("value")+"\\\""));
                             bmap.put("name",((JSONObject) o).getString("text"));
                         }else {
-                            bmap.put("value",tableService.selectCountLike(pageId,question,"\""+o.toString()+"\""));
+                            bmap.put("value",tableService.selectCountLike(pageId,question,"\\\""+o.toString()+"\\\""));
                             bmap.put("name",o.toString());
                         }
                         data.add(bmap);
@@ -196,12 +202,48 @@ public class ResultController {
                             if ("columns".equals(str)){
                                 hashMap.put(str,o.toString());
                             }else{
-                                hashMap.put(str,tableService.selectCountLike(pageId,question,"\""+str+"\":"+"\""+o.toString()+"\""));
+                                hashMap.put(str,tableService.selectCountLike(pageId,question,"\\\""+str+"\\\":"+"\\\""+o.toString()+"\\\""));
                             }
                         }
                         data.add(hashMap);
                     }
                     return new AnalyzeResult(true,type,title,items,data);
+                }
+
+                if (("3DMap").equals(type)){
+                    final String COLUMNS = "columns";
+                    final String CHOICES = "choices";
+                    final String NUMBER = "number";
+                    StringBuilder sb = new StringBuilder();
+                    data = new ArrayList<>(128);
+                    JSONArray columnArray = jsonObject.getJSONArray(COLUMNS);
+                    JSONArray choicesArray = jsonObject.getJSONArray(CHOICES);
+                    Iterator iterator = columnArray.iterator();
+                    while (iterator.hasNext()){
+                        JSONObject cObject = (JSONObject) iterator.next();
+                        Iterator cItor = choicesArray.iterator();
+                        while (cItor.hasNext()){
+                            bmap = new LinkedHashMap<>(16);
+                            Object o = cItor.next();
+                            bmap.put(COLUMNS,cObject.getString("name"));
+                            bmap.put(CHOICES,o.toString());
+                            sb.append("\\\"");
+                            sb.append(cObject.getString("name"));
+                            sb.append("\\\"");
+                            sb.append(":");
+                            if (o instanceof Integer){
+                                sb.append(o.toString());
+                            }else{
+                                sb.append("\\\"");
+                                sb.append(o.toString());
+                                sb.append("\\\"");
+                            }
+                            bmap.put(NUMBER,tableService.selectCountLike(pageId,question,sb.toString()));
+                            data.add(bmap);
+                            sb.setLength(0);
+                        }
+                    }
+                    return new AnalyzeResult(true,type,title,data);
                 }
             }
         }

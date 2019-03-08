@@ -66,7 +66,7 @@ public class AnalyzeUtils {
             case "matrix":
                 return "line";
             case "matrixdynamic":
-                return "三维";
+                return "3DMap";
             case "text":
             case "matrixdropdown":
             case "multipletext":
@@ -91,7 +91,6 @@ public class AnalyzeUtils {
         while (iterator.hasNext()){
             JSONObject jObject = (JSONObject) iterator.next();
             JSONArray jArray = jObject.getJSONArray("elements");
-            System.out.println(jArray);
             Iterator jter = jArray.iterator();
             while(jter.hasNext()){
                 alist.add((JSONObject) jter.next());
