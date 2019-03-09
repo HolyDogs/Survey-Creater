@@ -1,5 +1,6 @@
 package com.me.controller;
 
+import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
@@ -243,6 +244,38 @@ public class ResultController {
                             sb.setLength(0);
                         }
                     }
+                    return new AnalyzeResult(true,type,title,data);
+                }
+
+                if (("3DSMap").equals(type)){
+                    final String COLUMNS = "columns";
+                    final String CHOICES = "choices";
+                    final String NUMBER = "number";
+                    JSONArray jsonArray = jsonObject.getJSONArray("choices");
+                    int size = jsonArray.size();
+                    data = new ArrayList<>(128);
+                    List<String> tData = tableService.selectColumn(pageId,question);
+
+                    Iterator iterator = jsonArray.iterator();
+                    while (iterator.hasNext()){
+                        Object o = iterator.next();
+                        for (int i=1;i<=size;i++){
+                            bmap = new LinkedHashMap<>(16);
+                            bmap.put(COLUMNS,o.toString());
+                            bmap.put(CHOICES,"放第"+i+"位");
+                            Iterator tItor = tData.iterator();
+                            int tCount = 0;
+                            while (tItor.hasNext()){
+                                JSONArray tJsonArray = JSON.parseArray((String) tItor.next());
+                                if(tJsonArray.getString(i-1).equals(o.toString())){
+                                    tCount++;
+                                }
+                            }
+                            bmap.put(NUMBER,tCount);
+                            data.add(bmap);
+                        }
+                    }
+                    type = "3DMap";
                     return new AnalyzeResult(true,type,title,data);
                 }
             }

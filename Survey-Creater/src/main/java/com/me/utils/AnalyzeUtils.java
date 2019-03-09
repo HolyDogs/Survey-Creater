@@ -35,11 +35,11 @@ public class AnalyzeUtils {
             case "matrix":
             case "matrixdropdown":
             case "matrixdynamic":
+            case "sortablelist":
                 return true;
             case "multipletext":
             case "panel":
             case "paneldynamic":
-            case "sortablelist":
             case "comment":
             case "html":
             case "expression":
@@ -67,12 +67,13 @@ public class AnalyzeUtils {
                 return "line";
             case "matrixdynamic":
                 return "3DMap";
+            case "sortablelist":
+                return "3DSMap";
             case "text":
             case "matrixdropdown":
             case "multipletext":
             case "panel":
             case "paneldynamic":
-            case "sortablelist":
             case "comment":
             case "html":
             case "expression":

@@ -109,5 +109,14 @@ public class TableServiceImpl implements TableService {
         return tableMapper.selectCountLikeItem(tableName,column,item);
     }
 
+    @Override
+    public List<String> selectColumn(String tableName, String column) {
+        Integer flag = tableMapper.existTable(tableName);
+        if (flag <= 0){
+            return null;
+        }
+        return tableMapper.selectColumns(tableName,column);
+    }
+
 
 }

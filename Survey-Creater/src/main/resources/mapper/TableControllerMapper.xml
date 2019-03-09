@@ -59,4 +59,8 @@
         SELECT COUNT(*) FROM ${tableName} WHERE ${column} LIKE "%${item}%"
     </select>
 
+    <select id="selectColumns" resultType="java.lang.String">
+        SELECT ${column} FROM ${tableName}
+    </select>
+
 </mapper>

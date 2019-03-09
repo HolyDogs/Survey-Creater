@@ -85,6 +85,7 @@ export default {
         me.bar = false;
         me.pie = false;
         me.thrd = true;
+
             me.myChartC.setOption({
             title:{ 
                 text: me.title,
@@ -98,7 +99,9 @@ export default {
             　　　　 fontSize:30
                 }
             },
-            tooltip:{},
+            tooltip:{
+
+            },
             grid3D: {},
             xAxis3D: {
                 // 因为 x 轴和 y 轴都是类目数据，所以需要设置 type: 'category' 保证正确显示数据。
