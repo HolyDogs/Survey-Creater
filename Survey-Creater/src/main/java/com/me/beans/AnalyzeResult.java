@@ -10,6 +10,7 @@ import java.util.List;
  * @Data 2019/3/5 18:22
  * @Version 1.0
  **/
+
 public class AnalyzeResult {
     public Boolean success;
     public List<Integer> count;

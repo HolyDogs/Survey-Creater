@@ -33,10 +33,10 @@ public class AnalyzeUtils {
             case "rating":
             case "boolean":
             case "matrix":
-            case "matrixdropdown":
             case "matrixdynamic":
-            case "sortablelist":
                 return true;
+            case "matrixdropdown":
+            case "sortablelist":
             case "multipletext":
             case "panel":
             case "paneldynamic":
@@ -70,6 +70,7 @@ public class AnalyzeUtils {
             case "sortablelist":
                 return "3DSMap";
             case "text":
+                return "text";
             case "matrixdropdown":
             case "multipletext":
             case "panel":

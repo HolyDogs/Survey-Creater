@@ -19,7 +19,6 @@ export default{
         sendDataToServer:function(survey){
           let me = this;
           let params = JSON.stringify(survey.data);
-          console.log(JSON.stringify(survey.data));
           this.$axios.post('surveys/commit',qs.stringify({"params":params,"tableId":me.$route.params.id}),function(){
 
           });

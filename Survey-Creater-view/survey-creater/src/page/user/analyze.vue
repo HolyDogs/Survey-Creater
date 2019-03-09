@@ -1,4 +1,4 @@
-<style type="text/css" src="@/style/analyze.css"></style>
+<style type="text/css" src="@/style/user/analyze.css"></style>
 
 <template>
     <div class="maxDiv">
@@ -10,6 +10,8 @@
             <div class="chart" id="myChartB" v-show="bar" :style="{width: '500px', height: '500px'}"></div>
             <div class="chart" id="myChartC" v-show="thrd" :style="{width: '700px', height: '700px'}"></div>
             <div class="vchart" v-if="vchart"><h4>{{title}}</h4><ve-line class="vchartC" :loading="loading" :extend="extend" :data="vchartData"></ve-line></div>
+
+            <div class="vchart" v-if="vmap"><h4>{{title}}</h4><ve-map :loading="loading" :data="vchartData"></ve-map></div>
         </div>
     </div>
 </template>
@@ -29,10 +31,11 @@ require('echarts/lib/component/title')
 require("echarts/lib/component/dataset")
 
 import VeLine from 'v-charts/lib/line'
+import VeMap from 'v-charts/lib/map'
 
 export default {
   name: 'hello',
-  components:{ VeLine },
+  components:{ VeLine,VeMap },
   data() {
     return {
       startFlag:false,
@@ -51,6 +54,7 @@ export default {
       myChartC:'',
       vchartData:{},
       vchart:false,
+      vmap:false,
       bar:false,
       pie:false,
       thrd:false,
@@ -79,11 +83,24 @@ export default {
     })
   },
   methods: {
+    drawVmap() {
+        let me = this;
+        me.vchartData = {
+            columns: me.items,
+            rows: me.count
+        };
+      me.bar = false;
+      me.pie = false;
+      me.thrd = false;
+      me.vchart = false;
+      me.vmap = true
+    },
     draw3d() {
         let me = this;
         me.vchart = false;
         me.bar = false;
         me.pie = false;
+        me.vmap = false;
         me.thrd = true;
 
             me.myChartC.setOption({
@@ -116,7 +133,8 @@ export default {
                 max: 10,
                 dimension: 'number',
                 inRange: {
-                    color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026']
+                    color: ['#313695', '#4575b4', '#74add1', '#abd9e9', '#e0f3f8', '#ffffbf', '#fee090', '#fdae61', '#f46d43', '#d73027', '#a50026'],
+
                 }
             },
             dataset: {
@@ -168,6 +186,7 @@ export default {
       };
       me.bar = false;
       me.pie = false;
+      me.vmap = false;
       me.thrd = false;
       me.vchart = true;
     },
@@ -175,6 +194,7 @@ export default {
         let me = this;
         me.vchart = false;
         me.thrd = false;
+        me.vmap = false;
         me.bar = false;
         me.pie = true;
           let option = {
@@ -238,6 +258,7 @@ export default {
 
       me.vchart = false;
       me.thrd = false;
+      me.vmap = false;
       me.pie = false;
       me.bar = true;
       // 绘制图表
@@ -277,6 +298,11 @@ export default {
             }else if(me.type == "3DMap"){
                 me.items = r.data;
                 me.draw3d();
+            }else if(me.type == "tmap"){
+                me.loading = true;
+                me.count = r.data;
+                me.items = r.items;
+                me.drawVmap();
             }
             me.loading = false;
             me.myChart.hideLoading();

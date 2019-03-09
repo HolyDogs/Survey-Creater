@@ -113,41 +113,4 @@
 	}
 </script>
 
-<style type="text/css">
-    .resultDiv {
-        text-align: center;
-        margin-top: 150px; 
-    }
-
-    .pagination {
-        margin:0 auto;
-        left: 
-    }
-
-    .btn {
-        border:1px solid #9c92ac;
-        
-    }
-
-    .btn-inverse {
-        margin-left: 10px;
-        left: 50%;
-        top: 50%;
-    }
-
-    .btnDiv {
-        text-align: center;
-        vertical-align: middle;
-        padding-top: 100px;
-    }
-
-    .tableDiv {
-        text-align: center;
-    }
-
-    .ulDiv {
-        width: 100%;
-        text-align: center;
-    }
-
-</style>
+<style type="text/css" src="@/style/user/result.css"></style>

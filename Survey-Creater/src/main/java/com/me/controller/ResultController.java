@@ -68,6 +68,9 @@ public class ResultController {
         while (itor.hasNext()){
             Map.Entry entry = (Map.Entry) itor.next();
             if (AnalyzeUtils.filterQuestions(entry.getValue().toString())){
+                if (entry.getValue().toString().equals("text")&&!entry.getKey().toString().startsWith("map")){
+                    continue;
+                }
                 alist.add(entry.getKey().toString());
             }
         }
@@ -277,6 +280,48 @@ public class ResultController {
                     }
                     type = "3DMap";
                     return new AnalyzeResult(true,type,title,data);
+                }
+
+                if (("text").equals(type)){
+                    if (question.startsWith("map")){
+                        items = tableService.selectColumn(pageId,question);
+                        HashMap<String,Integer> hashMap = new HashMap<>(64);
+                        for (String str : items){
+                            if (hashMap.containsKey(str)) {
+                                hashMap.put(str, (hashMap.get(str)+1));
+                            } else {
+                                hashMap.put(str, 1);
+                            }
+                        }
+                        items = new ArrayList<>(4);
+                        items.add("位置");
+                        items.add("人数");
+                        data = new ArrayList<>(64);
+                        Iterator iterator = hashMap.entrySet().iterator();
+                        HashMap<String,Object> hashMap1 ;
+                        while (iterator.hasNext()){
+                            hashMap1 = new LinkedHashMap(4);
+                            Map.Entry entry = (Map.Entry) iterator.next();
+                            hashMap1.put("位置",entry.getKey());
+                            hashMap1.put("人数",entry.getValue());
+                            data.add(hashMap1);
+                        }
+                        type = "tmap";
+
+                        //检查list里的值，发现bug
+                        /*
+                        for(HashMap hashMap2 : data){
+                            Iterator iterator1 = hashMap2.entrySet().iterator();
+                            while (iterator1.hasNext()){
+                                Map.Entry entry = (Map.Entry) iterator1.next();
+                                System.out.println(entry.getKey()+"=========="+entry.getValue());
+                            }
+                        }
+                        */
+                        return new AnalyzeResult(true,type,title,items,data);
+                    }
+
+
                 }
             }
         }
