@@ -105,7 +105,7 @@
             },
             analyze:function(){
                 let me = this;
-                me.$router.push({path:'/user/analyze',query:{
+                me.$router.replace({path:'/user/analyze',query:{
                     pageid:me.$route.params.id
                 }})
             }

@@ -9,6 +9,9 @@ import utils from './utils/fortime'
 import forCrypto from './utils/forCrypto.js'
 import 'bootstrap/dist/css/bootstrap.css'
 
+import hzqingVueTimeline from 'hzqing-vue-timeline'
+
+
 var state={
 	islogin:false,
 	manager:false,
@@ -36,6 +39,7 @@ Vue.prototype.$fortime=utils
 Vue.prototype.$forCrypto=forCrypto
 
 Vue.use(VueRouter)
+Vue.use(hzqingVueTimeline)
 
 const router = new VueRouter({
 	routes

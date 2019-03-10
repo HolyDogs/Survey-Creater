@@ -1,10 +1,10 @@
 <style type="text/css" src="@/style/user/analyze.css"></style>
 
 <template>
-    <div class="maxDiv">
+    <div class="maxDiv"  v-bind:style="{height: theight}">
         <BUTTON v-if="!startFlag" @click="startClick" class="btn btn-info btn-start">START</BUTTON>
-        <button v-show="startFlag" class="btn arrow arrow-left" :disabled="leftFlag" @click="forLeft" ></button>
-        <button v-show="startFlag" class="btn arrow arrow-right" :disabled="rightFlag" @click="forRight"></button>
+        <button v-show="startFlag" class="arrow arrow-left btn" :disabled="leftFlag" @click="forLeft" ></button>
+        <button v-show="startFlag" class="arrow arrow-right btn" :disabled="rightFlag" @click="forRight"></button>
         <div class="analyzeDiv">
             <div class="chart" id="myChart" v-show="pie" :style="{width: '500px', height: '500px'}"></div>
             <div class="chart" id="myChartB" v-show="bar" :style="{width: '500px', height: '500px'}"></div>
@@ -63,7 +63,8 @@ export default {
             smooth: false
         }
       },
-      loading:false
+      loading:false,
+      theight:''
     }
   },
   mounted() {
@@ -72,6 +73,7 @@ export default {
       this.myChartC = echarts.init(document.getElementById('myChartC'));
   },
   created() {
+    this.theight=window.innerHeight+'px';
     let me = this;
     this.$axios.get('analyze',{pageId:me.$route.query.pageid},function(r){
         me.qlist = r.qlist;

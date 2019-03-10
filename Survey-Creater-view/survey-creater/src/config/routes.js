@@ -12,7 +12,7 @@ import analyze from '../page/user/analyze.vue'
 
 
 import manageUser from '../page/manager/manageUser'
-import selectUser from '../page/manager/selectUser'
+import timeLine from '../page/manager/timeLine'
 
 export default[
     {
@@ -51,7 +51,7 @@ export default[
         component: mFrame,
         children: [
             {path:'/',component:manageUser},
-            {path:'/selectUser',component:selectUser}
+            {path:'timeLine',component:timeLine}
         ]
 
         /*,
