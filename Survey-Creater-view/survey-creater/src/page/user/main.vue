@@ -1,34 +1,66 @@
 <template>
 	<div class="mainDiv" v-bind:style="{height:theHeight}">
 		<div class="container">
-            <div class="row clearfix">
-                <div class="col-md-12 column">
-                    <div style="text-align: center;" class="jumbotron">
-                        <h1 v-if=name>
-                            欢迎:{{name}},请按照如下的步骤使用该系统
-                        </h1>
+            <div style="text-align: center;padding-top: 20px">
+                <h1 v-if=name>
+                    您好,{{name}},欢迎使用本系统
+                </h1>
+            </div>
+        </div>
 
-<!--                         <p>
-     <a class="btn btn-primary btn-large" href="#">Learn more</a>
-</p> -->
-                    </div>
+        <agile class="v-slide" :arrows="false" :dots="false" :autoplay="true" :autoplaySpeed="1000" :fade="false">
+            <div class="slide slide--1"><h3>slide 1</h3></div>
+            <div class="slide slide--2"><h3>slide 2</h3></div>
+            <div class="slide slide--3"><h3>slide 3</h3></div>
+            <div class="slide slide--4"><h3>slide 4</h3></div>
+            <div class="slide slide--5"><h3>slide 5</h3></div>
+            <div class="slide slide--6"><h3>slide 6</h3></div>
+        </agile>
+
+
+        <div class="container">
+            <div class="row clearfix myDiv1">
+                <div class="col-md-4 column">
+                    <h2>
+                        SurveyJS
+                    </h2>
+                    <p>
+                        SurveyJS 是一款足够炫酷的 JS库，顾名思义，它是一款帮你创造调查问卷的JS库，其中包含有各种各样的调查问卷，并且它还被移植到了多个流行的JS框架中，包括 AngularJS，VueJS 和 React
+                    </p>
+                    <p>
+                         <a class="btn btn-primary btn-sm" href="https://surveyjs.io/survey/Builder/">View details »</a>
+                    </p>
+                </div>
+                <div class="col-md-4 column">
+                    <h2>
+                        ECharts
+                    </h2>
+                    <p>
+                        ECharts，一个使用 JavaScript 实现的开源可视化库，可以流畅的运行在 PC 和移动设备上，兼容当前绝大部分浏览器（IE8/9/10/11，Chrome，Firefox，Safari等），底层依赖轻量级的矢量图形库 ZRender，提供直观，交互丰富，可高度个性化定制的数据可视化图表。
+                    </p>
+                    <p>
+                         <a class="btn btn-primary btn-sm" href="https://www.echartsjs.com/feature.html">View details »</a>
+                    </p>
+                </div>
+                <div class="col-md-4 column">
+                    <h2>
+                        更多
+                    </h2>
+                    <p>
+                        除此之外，项目还使用了v-charts、VueAgile、Fullscreen等插件工具，提供更好的使用体验
+                    </p>
+                    <p>
+                         <a class="btn btn-primary btn-sm" href="https://codesandbox.io/s/z69myovqzx">View details »</a>
+                    </p>
                 </div>
             </div>
         </div>
-        <div class="container" style="text-align: center;">
-            <h1>点击右上方的<router-link to="/user/surveyCreater">START</router-link>开始</h1>
-            <p><i>在这里创建您想生成的问卷调查或者在线考试试卷</i></p>
-            <div class="toDown"></div>
-            <h1>点击<router-link to="xxxx">Test</router-link>查看您已生成的项目</h1>
-            <i>这也是您用来给调查人群访问的页面</i>
-            <div class="toDown"></div>
-            <h1>点击<router-link to="xxxx">RESULT</router-link>查看您项目的结果分析</h1>
-            <i>在这里对您项目的结果进行一些可视化分析，或者您也可以直接查看所有结果的具体值</i>
-        </div>
+        
     </div>
 </template>
 
 <script type="text/javascript">
+
     export default{
         data(){
             return{
@@ -39,11 +71,62 @@
         mounted:function(){
             var me = this;
             this.name = this.state.identify.name;
-/*            if(!me.state.islogin){
-                me.$router.push({path:"/"});
-            }*/
+            me.$axios.get('tokenCheck',null,function(r){
+                me.name = r.name
+            })
         }
     }
 </script>
 
 <style type="text/css" src="@/style/user/main.css"></style>
+
+<style type="text/css">
+    .slide {
+    color: #fff;
+    height: 300px;
+    position: relative;
+}
+
+    .slide--1 {
+        background-color: #f1c40f;    
+    }
+
+    .slide--2 {
+        background-color: #f1c40f;    
+    }
+
+    .slide--3 {
+        background-color: #f1c40f;    
+    }
+
+    .slide--4 {
+        background-color: #f1c40f;    
+    }
+
+    .slide--5 {
+        background-color: #f1c40f;    
+    }
+
+    .slide--6 {
+        background-color: #f1c40f;    
+    }
+
+    h3 {
+        font-size: 32px;
+        font-weight: 300;
+        left: 50%;
+        margin: 0;
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .v-slide{
+        margin:100px auto; 
+    }
+
+    .MyContainer {
+
+    }
+
+</style>

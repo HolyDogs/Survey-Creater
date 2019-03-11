@@ -4,8 +4,11 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.me.security.TokenCreater;
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
 import org.junit.Test;
 
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,6 +76,12 @@ public class ArrayToStringTest {
         while(i<5){
 
         }
+    }
+
+    @Test
+    public void ee(){
+        LocalDateTime now = LocalDateTime.now();
+        System.out.println(now);
     }
 
 }

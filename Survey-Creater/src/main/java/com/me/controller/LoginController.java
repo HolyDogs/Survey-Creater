@@ -38,7 +38,7 @@ public class LoginController {
 
     @RequestMapping("/login")
     @ResponseBody
-    public HashMap login(@RequestParam("email")String email, @RequestParam("password")String password,HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    public HashMap forLogin(@RequestParam("email")String email, @RequestParam("password")String password,HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         System.out.println(email);
         User user=userService.loginCheck(email,password);
         HashMap<String,Object> hashMap=new HashMap<>(16);
@@ -56,7 +56,7 @@ public class LoginController {
         hashMap.put("name",user.getName());
         session.setAttribute("userid",user.getId());
 
-        //创建token返回并存入redis数据库，设置过期时间为半小时
+        //创建token返回并存入redis数据库，设置过期时间为1天
         String token = TokenCreater.createJWT(email,user.getPassword(),user.getName(),86400000);
         redisUtil.set(email,token,86400);
 
@@ -77,7 +77,7 @@ public class LoginController {
 
     @RequestMapping("/register")
     @ResponseBody
-    public HashMap register(@RequestParam("email")String email,@RequestParam(value = "name",required = false,defaultValue = "未取名")String name,@RequestParam("password")String password,
+    public HashMap forRegister(@RequestParam("email")String email,@RequestParam(value = "name",required = false,defaultValue = "未取名")String name,@RequestParam("password")String password,
                          @RequestParam("checkcode")String checkcode,HttpSession httpSession) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         HashMap<String,Object> result=new HashMap<>(16);
         String sessionStr = "checkCode";

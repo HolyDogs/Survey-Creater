@@ -6,8 +6,11 @@ import com.me.beans.ManageReturn;
 import com.me.beans.ReturnMessage;
 import com.me.beans.User;
 import com.me.service.UserService;
+import com.me.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.*;
 
 /**
  * @Description -> pageManager
@@ -22,6 +25,9 @@ public class ManagerController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private RedisUtil redisUtil;
 
     @DeleteMapping("/deleteUser")
     @ResponseBody
@@ -50,4 +56,17 @@ public class ManagerController {
         return new ManageReturn(true,page);
     }
 
+
+    @GetMapping("/getHistory")
+    @ResponseBody
+    public ManageReturn getHistory(@RequestHeader("Authorization")String token){
+        List<Map<Object, Object>> dList = new ArrayList<>();
+        HashMap hashMap = (HashMap) redisUtil.hmget("TIMELINE");
+        Iterator iterator = hashMap.entrySet().iterator();
+        while (iterator.hasNext()){
+            Map.Entry entry = (Map.Entry) iterator.next();
+            dList.add(redisUtil.hmget(entry.getKey().toString()));
+        }
+        return new ManageReturn(true,dList);
+    }
 }

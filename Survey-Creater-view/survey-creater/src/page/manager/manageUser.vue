@@ -87,7 +87,7 @@
                                 <B>{{user.email}}</B>
                             </td>
                             <td>
-                                <button class="btn btn-warning" @click="clickDelete(user.id)">删除</button><
+                                <button class="btn btn-warning" @click="clickDelete(user.id)">删除</button>
                             </td>
                         </tr>
                     </tbody>

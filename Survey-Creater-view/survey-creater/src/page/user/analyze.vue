@@ -5,6 +5,7 @@
         <BUTTON v-if="!startFlag" @click="startClick" class="btn btn-info btn-start">START</BUTTON>
         <button v-show="startFlag" class="arrow arrow-left btn" :disabled="leftFlag" @click="forLeft" ></button>
         <button v-show="startFlag" class="arrow arrow-right btn" :disabled="rightFlag" @click="forRight"></button>
+        <fullscreen ref="fullscreen" :fullscreen.sync="fullscreen">
         <div class="analyzeDiv">
             <div class="chart" id="myChart" v-show="pie" :style="{width: '500px', height: '500px'}"></div>
             <div class="chart" id="myChartB" v-show="bar" :style="{width: '500px', height: '500px'}"></div>
@@ -13,6 +14,8 @@
 
             <div class="vchart" v-if="vmap"><h4>{{title}}</h4><ve-map :loading="loading" :data="vchartData"></ve-map></div>
         </div>
+      </fullscreen>
+      <button v-show="startFlag" class="btn-info btn" type="button" @click="toggle">Fullscreen</button>
     </div>
 </template>
 
@@ -32,10 +35,11 @@ require("echarts/lib/component/dataset")
 
 import VeLine from 'v-charts/lib/line'
 import VeMap from 'v-charts/lib/map'
+import Fullscreen from "vue-fullscreen/src/component.vue"
 
 export default {
   name: 'hello',
-  components:{ VeLine,VeMap },
+  components:{ VeLine,VeMap,Fullscreen },
   data() {
     return {
       startFlag:false,
@@ -64,7 +68,8 @@ export default {
         }
       },
       loading:false,
-      theight:''
+      theight:'',
+      fullscreen:false
     }
   },
   mounted() {
@@ -85,6 +90,10 @@ export default {
     })
   },
   methods: {
+          toggle () {
+        this.$refs['fullscreen'].toggle()
+        // this.fullscreen = !this.fullscreen
+      },
     drawVmap() {
         let me = this;
         me.vchartData = {

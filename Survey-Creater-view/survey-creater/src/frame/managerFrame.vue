@@ -4,9 +4,9 @@
             <div class="row clearfix">
                 <div class="col-md-1 column">
                     <div class="manageDiv nav">
-                            <router-link class="routerlink" active-class="routerActive" exact to="/manager/">🏠用户管理</router-link>
-                            <router-link class="routerlink" active-class="routerActive" exact to="/manager/timeLine">🕑使用记录</router-link>
-                            <button class="btn btn-danger routerlink" @click.passive="logout">💨退出登陆</button>
+                            <router-link class="routerlinkM" active-class="routerActive" exact to="/manager/">🏠用户管理</router-link>
+                            <router-link class="routerlinkM" active-class="routerActive" exact to="/manager/timeLine">🕑使用记录</router-link>
+                            <button class="btn btn-danger routerlinkM" @click.passive="logout">💨退出登陆</button>
                     </div>
                 </div>
 
@@ -28,6 +28,29 @@
         },
         created(){
             this.theight=window.innerHeight+'px';
+        },
+        mounted(){
+            let me = this;
+            if(!me.state.islogin){
+                me.$axios.get('tokenCheck',null,function(r){
+                    me.state.login(r.name,r.manager,r.id);
+                })
+            }else{
+                if(me.state.manager){
+                    me.$router.push({path:'/manager/'})
+                }else{
+                    me.$router.push({path:'/user/'})
+                }
+            }
+        },
+        methods:{
+            logout:function(){
+                alert("注销成功");
+                this.state.logout();
+                localStorage.removeItem('token');
+                this.$router.push({path:'/'})
+            }
+
         }
     }
 </script>
@@ -42,7 +65,7 @@
 
         }
 
-     .routerlink{
+     .routerlinkM{
         width:160px;
         height:40px;
         background-color:#333333;
@@ -61,6 +84,10 @@
     .routerActive{
             box-shadow:0px 0px 5px 3px #6cdd7e;
     } 
+
+    .btn-danger{
+        font-size: 18px;
+    }
 
 .logoutbtn {
     position: absolute;

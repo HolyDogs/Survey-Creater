@@ -1,5 +1,7 @@
 package com.me.controller;
 
+import com.baomidou.mybatisplus.mapper.EntityWrapper;
+import com.me.beans.User;
 import com.me.security.TokenCreater;
 import com.me.service.UserService;
 import com.me.utils.RedisUtil;
@@ -32,9 +34,10 @@ public class TokenController {
     public HashMap tokenCheck(@RequestHeader("Authorization")String token, HttpSession session){
         HashMap hashMap = TokenCreater.parseJWT(token);
         if (redisUtil.get((String) hashMap.get("id")).equals(token)){
-            System.out.println("=======success========");
-            session.setAttribute("userid",userService.selectIdByEmail((String) hashMap.get("id")));
+            User user = userService.selectOne(new EntityWrapper<User>().eq("email",hashMap.get("id")));
+            session.setAttribute("userid",user.getId());
             hashMap.put("success",true);
+            hashMap.put("manager",user.getIdentify()==0);
             return hashMap;
         }else {
             System.out.println("======error======");

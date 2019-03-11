@@ -16,10 +16,13 @@
     "echarts": "^4.1.0",
     "echarts-gl": "^1.1.1",
     "hzqing-vue-timeline": "^1.0.3",
+    "nx-card": "^1.0.3",
     "survey-knockout": "^1.0.66",
     "surveyjs-mod": "^1.0.15",
     "v-charts": "^1.19.0",
-    "vue": "^2.5.2"
+    "vue": "^2.5.2",
+    "vue-agile": "^0.3.7",
+    "vue-fullscreen": "^2.1.5"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

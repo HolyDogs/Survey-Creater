@@ -23,13 +23,15 @@
         },
         created(){
 
-
         },
         mounted(){
             let me = this;
             if(!me.state.islogin){
                 me.$axios.get('tokenCheck',null,function(r){
-                    me.state.login(r.name,false,r.id);
+                    me.state.login(r.name,r.manager,r.id);
+                    if (r.manager) {
+                       me.$router.push({path:'/manager/'})
+                    }
                     me.pageid=me.$forCrypto.forCrypto(me.state.identify.email);
                 })
             }else{

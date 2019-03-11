@@ -15,7 +15,7 @@ import java.io.IOException;
  * @Data 2019/3/10 15:59
  * @Version 1.0
  **/
-@WebFilter(filterName = "select",urlPatterns = "/*")
+@WebFilter(filterName = "select",urlPatterns = "/manager/selectPage")
 public class NullStringFilter implements Filter {
 
     @Override
