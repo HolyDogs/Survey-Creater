@@ -9,15 +9,15 @@
         </div>
 
         <agile class="v-slide" :arrows="false" :dots="false" :autoplay="true" :autoplaySpeed="1000" :fade="false">
-            <div class="slide slide--1"><h3>slide 1</h3></div>
-            <div class="slide slide--2"><h3>slide 2</h3></div>
-            <div class="slide slide--3"><h3>slide 3</h3></div>
-            <div class="slide slide--4"><h3>slide 4</h3></div>
-            <div class="slide slide--5"><h3>slide 5</h3></div>
-            <div class="slide slide--6"><h3>slide 6</h3></div>
+            <div class="slide slide--1"><h3>拖拽自动生成问卷</h3></div>
+            <div class="slide slide--2"><h3>灵活强大的控件</h3></div>
+            <div class="slide slide--3"><h3>直观智能的分析</h3></div>
+            <div class="slide slide--4"><h3>针对性突出的图表</h3></div>
+            <div class="slide slide--5"><h3>可供多角度分析的3维立体图</h3></div>
+            <div class="slide slide--6"><h3>还等什么，马上点击右上方START开始吧！</h3></div>
         </agile>
 
-
+        <h2 style="text-align: center;color: yellow;">相关技术</h2>
         <div class="container">
             <div class="row clearfix myDiv1">
                 <div class="col-md-4 column">
@@ -83,35 +83,37 @@
 <style type="text/css">
     .slide {
     color: #fff;
-    height: 300px;
+    height: 350px;
     position: relative;
 }
 
     .slide--1 {
-        background-color: #f1c40f;    
+        background-image: url(http://ww1.sinaimg.cn/large/006azB5Sly1g0z6nc6nzxj31gr0a9q3b.jpg);  
     }
 
     .slide--2 {
-        background-color: #f1c40f;    
+        background-image: url(http://ww1.sinaimg.cn/large/006azB5Sly1g0z6wchoiaj31ha097dfq.jpg);  
     }
 
     .slide--3 {
-        background-color: #f1c40f;    
+        background-image: url(http://ww1.sinaimg.cn/large/006azB5Sly1g0z6xb2zo4j31h80c8gnh.jpg);
     }
 
     .slide--4 {
-        background-color: #f1c40f;    
+        background-image: url(http://ww1.sinaimg.cn/large/006azB5Sly1g0z6xzgpoij31gq0bzacw.jpg);   
     }
 
     .slide--5 {
-        background-color: #f1c40f;    
+        background-image: url(http://ww1.sinaimg.cn/large/006azB5Sly1g0z6yr26x9j31h80h50x9.jpg); 
     }
 
     .slide--6 {
-        background-color: #f1c40f;    
+        background-color: #44e865;    
     }
 
     h3 {
+        color: #f28218;
+        text-shadow: 8px 4px 5px #000;
         font-size: 32px;
         font-weight: 300;
         left: 50%;
