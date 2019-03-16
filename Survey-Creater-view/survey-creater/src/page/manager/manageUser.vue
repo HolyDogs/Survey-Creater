@@ -91,21 +91,19 @@
                             </td>
                         </tr>
                     </tbody>
-                    
-                    <B>共有{{size}}页 、 {{total}}条数据 、 当前页数{{selectform.current}}</B>
-
-                    <ul class="pagination pagination-lg">
-                        <li>
-                             <Button class="btn btn-info btn-inverse" :disabled="!hasPre"  @click="clickPage($event)">Prev</Button>
-                        </li>
-                        <li v-for="n in size">
-                             <Button class="btn btn-default btn-inverse"  @click="clickPage($event)">{{n}}</Button>
-                        </li>
-                        <li>
-                             <Button class="btn btn-info btn-inverse" :disabled="!hasNext"  @click="clickPage($event)">Next</Button>
-                        </li>
-                    </ul>
                 </table>
+                <B>共有{{size}}页 、 {{total}}条数据 、 当前页数{{selectform.current}}</B>
+                <ul class="pagination pagination-lg">
+                    <li>
+                         <Button class="btn btn-info btn-inverse" :disabled="!hasPre"  @click="clickPage($event)">Prev</Button>
+                    </li>
+                    <li v-for="n in size">
+                         <Button class="btn btn-default btn-inverse"  @click="clickPage($event)">{{n}}</Button>
+                    </li>
+                    <li>
+                         <Button class="btn btn-info btn-inverse" :disabled="!hasNext"  @click="clickPage($event)">Next</Button>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -161,6 +159,10 @@ export default {
             }
             if(btn.target.innerText == "Next"){
                 me.selectform.current = me.selectform.current+1;
+                me.getUserData();
+                return;
+            }else{
+                me.selectform.current = btn.target.innerText;
                 me.getUserData();
                 return;
             }

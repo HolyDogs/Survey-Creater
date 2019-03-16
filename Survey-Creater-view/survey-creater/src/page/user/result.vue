@@ -35,8 +35,7 @@
     <div class="btnDiv">
         <button v-if="!bflag" @click="selectAll" class="btn btn-block btn-info">查询所有结果</button><br/>
         <button v-if="bflag" @click="analyze" class="btn btn-block btn-warning">可视化分析</button><br/>
-        <button v-if="dflag" class="btn btn-block btn-danger" @click="deleteSurvey">删除已有项目</button><br/>  
-
+        <button v-if="dflag" class="btn btn-block btn-danger" @click="deleteSurvey">删除已有项目</button><br/>
     </div>
 
   </div>

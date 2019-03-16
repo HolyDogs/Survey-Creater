@@ -24,18 +24,20 @@ import java.util.List;
  **/
 public class MyTest extends DemoApplicationTests{
 
- /*   @Autowired
+    @Autowired
     UserService userService;
 
     @Test
     public void test() throws UnsupportedEncodingException, NoSuchAlgorithmException {
         User user=new User();
-        user.setEmail("xf@qq.com");
-        user.setIdentify(1);
-        user.setName("小强");
-        user.setPassword(Md5Utils.EncodePassword("123"));
-        userService.insert(user);
-    }*/
+        for (int i=77;i<177;i++){
+            user.setEmail("testEmail"+i+"@test.com");
+            user.setIdentify(1);
+            user.setName("测试用户"+i+"号");
+            user.setPassword(Md5Utils.EncodePassword("123"));
+            userService.insert(user);
+        }
+    }
 
     @Autowired
     TableService tableService;
