@@ -47,7 +47,7 @@
                         更多
                     </h2>
                     <p>
-                        除此之外，项目还使用了v-charts、VueAgile、Fullscreen等插件工具，提供更好的使用体验
+                        除此之外，项目还使用了v-charts、VueAgile、Fullscreen等插件工具，以提供更好的使用体验
                     </p>
                     <p>
                          <a class="btn btn-primary btn-sm" href="https://codesandbox.io/s/z69myovqzx">View details »</a>
