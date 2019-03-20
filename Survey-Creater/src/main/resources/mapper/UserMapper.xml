@@ -10,7 +10,7 @@
         id, name, identify, email, possess, password
     </sql>
 
-    <select id="selectByEmail" parameterType="java.lang.String" resultType="com.me.beans.User">
+    <select id="selectByEmail" parameterType="java.lang.String" resultType="com.me.po.User">
         SELECT * FROM USER WHERE EMAIL = #{value}
     </select>
 </mapper>

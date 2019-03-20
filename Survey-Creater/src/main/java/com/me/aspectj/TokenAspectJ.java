@@ -1,6 +1,6 @@
 package com.me.aspectj;
 
-import com.me.beans.ReturnMessage;
+import com.me.vo.ReturnMessage;
 import com.me.security.TokenCreater;
 import com.me.utils.RedisUtil;
 import org.aspectj.lang.ProceedingJoinPoint;

@@ -1,6 +1,6 @@
 package com.me.service;
 
-import com.me.beans.Surveys;
+import com.me.po.Surveys;
 import com.baomidou.mybatisplus.service.IService;
 
 /**

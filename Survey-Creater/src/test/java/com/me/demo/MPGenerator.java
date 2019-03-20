@@ -46,7 +46,7 @@ public class MPGenerator {
                     .setMapper("mapper")
                     .setService("service")
                     .setController("controller")
-                    .setEntity("beans")
+                    .setEntity("po")
                     .setXml("mapper");
             //5. 整合配置
             AutoGenerator ag = new AutoGenerator();

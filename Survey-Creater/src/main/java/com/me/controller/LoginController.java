@@ -1,15 +1,16 @@
 package com.me.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.me.config.EmailMessage;
-import com.me.beans.ReturnMessage;
-import com.me.beans.User;
+import com.me.dto.EmailMessage;
+import com.me.vo.ReturnMessage;
+import com.me.po.User;
 import com.me.security.Md5Utils;
 import com.me.security.TokenCreater;
 import com.me.service.UserService;
 import com.me.utils.CheckCodeUtills;
 import com.me.utils.RedisUtil;
 import com.me.utils.SendEmailUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,7 @@ import java.util.HashMap;
  **/
 
 @RestController
+@Slf4j
 public class LoginController {
 
     @Autowired
@@ -39,7 +41,7 @@ public class LoginController {
     @RequestMapping("/login")
     @ResponseBody
     public HashMap forLogin(@RequestParam("email")String email, @RequestParam("password")String password,HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        System.out.println(email);
+        log.info(email);
         User user=userService.loginCheck(email,password);
         HashMap<String,Object> hashMap=new HashMap<>(16);
 

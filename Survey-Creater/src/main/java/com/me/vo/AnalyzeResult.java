@@ -1,4 +1,4 @@
-package com.me.beans;
+package com.me.vo;
 
 import java.util.HashMap;
 import java.util.List;

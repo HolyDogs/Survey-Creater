@@ -1,8 +1,7 @@
 package com.me.demo;
 
-import com.me.beans.User;
+import com.me.po.User;
 import com.me.mapper.TableControllerMapper;
-import com.me.mapper.UserMapper;
 import com.me.security.Md5Utils;
 import com.me.service.TableService;
 import com.me.service.UserService;
@@ -12,8 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;
-import java.util.HashMap;
-import java.util.List;
 
 /**
  * @ClassName MyTest

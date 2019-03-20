@@ -1,10 +1,11 @@
 package com.me.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.me.beans.User;
+import com.me.po.User;
 import com.me.security.TokenCreater;
 import com.me.service.UserService;
 import com.me.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -22,6 +23,7 @@ import java.util.HashMap;
  * @Version 1.0
  **/
 @RestController
+@Slf4j
 public class TokenController {
 
     @Autowired
@@ -38,9 +40,10 @@ public class TokenController {
             session.setAttribute("userid",user.getId());
             hashMap.put("success",true);
             hashMap.put("manager",user.getIdentify()==0);
+            log.info("======TOKEN验证成功======");
             return hashMap;
         }else {
-            System.out.println("======error======");
+            log.warn("======身份有误======");
             hashMap.put("success",true);
             hashMap.put("res_code",401);
             return hashMap;

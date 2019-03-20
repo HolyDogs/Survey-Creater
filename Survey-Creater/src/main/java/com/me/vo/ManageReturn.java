@@ -1,4 +1,4 @@
-package com.me.beans;
+package com.me.vo;
 
 import com.baomidou.mybatisplus.plugins.Page;
 

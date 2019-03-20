@@ -1,4 +1,6 @@
-package com.me.beans;
+package com.me.vo;
+
+import com.me.dto.Page;
 
 import java.io.Serializable;
 import java.util.HashMap;

@@ -1,19 +1,15 @@
 package com.me.controller;
 
 
-import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.me.beans.ReturnMessage;
-import com.me.beans.Surveys;
+import com.me.vo.ReturnMessage;
+import com.me.po.Surveys;
 import com.me.service.SurveysService;
 import com.me.service.TableService;
 import com.me.utils.JSONResultFormatterUtils;
 import com.me.utils.RedisUtil;
-import org.apache.commons.lang.StringEscapeUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import org.springframework.stereotype.Controller;
 
 import java.util.HashMap;
 

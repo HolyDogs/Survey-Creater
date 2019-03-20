@@ -1,4 +1,4 @@
-package com.me.config;
+package com.me.dto;
 
 /**
  * @ClassName EmailMessage

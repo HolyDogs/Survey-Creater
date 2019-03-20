@@ -1,7 +1,6 @@
 package com.me.service;
 
-import com.me.beans.Page;
-import org.apache.ibatis.annotations.Param;
+import com.me.dto.Page;
 
 import java.util.HashMap;
 import java.util.List;

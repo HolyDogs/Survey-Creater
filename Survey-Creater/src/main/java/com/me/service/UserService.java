@@ -1,9 +1,7 @@
 package com.me.service;
 
-import com.me.beans.User;
+import com.me.po.User;
 import com.baomidou.mybatisplus.service.IService;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
 
 import java.io.UnsupportedEncodingException;
 import java.security.NoSuchAlgorithmException;

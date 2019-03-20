@@ -1,7 +1,7 @@
 package com.me.utils;
 
-import com.me.config.EmailMessage;
-import com.me.beans.Mymail;
+import com.me.dto.EmailMessage;
+import com.me.dto.Mymail;
 
 /**
  * @author fenghere

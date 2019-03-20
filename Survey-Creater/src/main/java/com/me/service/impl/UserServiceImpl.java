@@ -1,6 +1,6 @@
 package com.me.service.impl;
 
-import com.me.beans.User;
+import com.me.po.User;
 import com.me.mapper.UserMapper;
 import com.me.security.Md5Utils;
 import com.me.service.UserService;

@@ -2,9 +2,9 @@ package com.me.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
 import com.baomidou.mybatisplus.plugins.Page;
-import com.me.beans.ManageReturn;
-import com.me.beans.ReturnMessage;
-import com.me.beans.User;
+import com.me.vo.ManageReturn;
+import com.me.vo.ReturnMessage;
+import com.me.po.User;
 import com.me.service.UserService;
 import com.me.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;

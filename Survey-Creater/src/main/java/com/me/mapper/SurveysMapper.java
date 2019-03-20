@@ -1,6 +1,6 @@
 package com.me.mapper;
 
-import com.me.beans.Surveys;
+import com.me.po.Surveys;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 

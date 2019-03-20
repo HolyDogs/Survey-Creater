@@ -1,9 +1,9 @@
 package com.me.controller;
 
 import com.baomidou.mybatisplus.mapper.EntityWrapper;
-import com.me.beans.ReturnMessage;
-import com.me.beans.Surveys;
-import com.me.beans.User;
+import com.me.vo.ReturnMessage;
+import com.me.po.Surveys;
+import com.me.po.User;
 import com.me.service.SurveysService;
 import com.me.service.TableService;
 import com.me.service.UserService;

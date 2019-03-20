@@ -1,6 +1,6 @@
 package com.me.service.impl;
 
-import com.me.beans.Surveys;
+import com.me.po.Surveys;
 import com.me.mapper.SurveysMapper;
 import com.me.service.SurveysService;
 import com.baomidou.mybatisplus.service.impl.ServiceImpl;

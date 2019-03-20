@@ -1,10 +1,8 @@
 package com.me.mapper;
 
-import com.me.beans.User;
+import com.me.po.User;
 import com.baomidou.mybatisplus.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
-
-import java.util.List;
 
 /**
  * <p>

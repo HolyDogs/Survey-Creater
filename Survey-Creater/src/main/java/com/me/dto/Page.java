@@ -1,8 +1,6 @@
-package com.me.beans;
+package com.me.dto;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import java.util.ArrayList;
 import java.util.HashMap;
