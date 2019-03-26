@@ -5,7 +5,6 @@ import App from './App'
 import VueRouter from 'vue-router'
 import routes from './config/routes'
 import aapi from './config/axios'
-import utils from './utils/fortime'
 import forCrypto from './utils/forCrypto.js'
 import 'bootstrap/dist/css/bootstrap.css'
 
@@ -35,7 +34,6 @@ var state={
 
 Vue.prototype.state=state
 Vue.prototype.$axios=aapi
-Vue.prototype.$fortime=utils
 Vue.prototype.$forCrypto=forCrypto
 
 Vue.use(VueRouter)
