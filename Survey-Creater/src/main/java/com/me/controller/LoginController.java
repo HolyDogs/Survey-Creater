@@ -43,6 +43,7 @@ public class LoginController {
     public HashMap forLogin(@RequestParam("email")String email, @RequestParam("password")String password,HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         log.info(email);
         User user=userService.loginCheck(email,password);
+        //此处应把HashMap改为VO类型返回
         HashMap<String,Object> hashMap=new HashMap<>(16);
 
         if (user==null){

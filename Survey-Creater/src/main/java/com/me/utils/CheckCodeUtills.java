@@ -7,7 +7,7 @@ import java.util.Random;
 
 /**
  * @ClassName CheckCodeUtills
- * @Description TODO
+ * @Description 验证码产生
  * @Author xufeng
  * @Data 2019/2/22 11:03
  * @Version 1.0

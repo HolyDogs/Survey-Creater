@@ -90,7 +90,7 @@ export default {
     })
   },
   methods: {
-          toggle () {
+        toggle () {
         this.$refs['fullscreen'].toggle()
         // this.fullscreen = !this.fullscreen
       },
@@ -113,7 +113,6 @@ export default {
         me.pie = false;
         me.vmap = false;
         me.thrd = true;
-
             me.myChartC.setOption({
             title:{ 
                 text: me.title,
@@ -157,7 +156,7 @@ export default {
                     type: 'bar3D',
                     shading: 'lambert',
                     symbolSize: 2.5,
-/*                    label: {
+/*                  label: {
                         show: false,
                         textStyle: {
                             fontSize: 16,
@@ -264,7 +263,7 @@ export default {
 
     },
     drawLine() {
-        let me = this;
+      let me = this;
       // 基于准备好的dom，初始化echarts实例
 
       me.vchart = false;
