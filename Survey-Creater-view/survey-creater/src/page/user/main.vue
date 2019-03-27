@@ -78,4 +78,4 @@
     }
 </script>
 
-<style type="text/css" src="@/style/user/main.css"></style>
+<style type="text/css" src="@/style/user/main.css" scoped></style>

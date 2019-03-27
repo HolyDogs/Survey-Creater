@@ -6,7 +6,6 @@
 
 <script type="text/javascript">
 import * as Survey from 'survey-vue'
-import 'bootstrap/dist/css/bootstrap.css'
 import qs from 'qs'
 export default{
     data(){

@@ -27,7 +27,6 @@ let echarts = require('echarts/lib/echarts')
 require('echarts/lib/chart/pie')
 require('echarts/lib/chart/bar')
 require('echarts-gl')
-
 // 组件
 require('echarts/lib/component/tooltip')
 require('echarts/lib/component/title')
