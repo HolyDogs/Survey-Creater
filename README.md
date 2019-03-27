@@ -38,7 +38,7 @@
  - 后端主框架使用**SpringBoot**
 
 项目结构：<br/>
-![](http://ww1.sinaimg.cn/large/006azB5Sly1g0ztcuyodwj30b00ipgma.jpg)
+![](http://ww1.sinaimg.cn/large/006azB5Sly1g1h7dxenrzj30by0jzq3n.jpg)
 
  - 数据库操作使用**MybatisPlus**
 
