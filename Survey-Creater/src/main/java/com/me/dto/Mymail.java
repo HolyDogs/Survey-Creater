@@ -225,7 +225,6 @@ public class Mymail{
 				transport.sendMessage(mimeMsg,mimeMsg.getRecipients(Message.RecipientType.TO));
 				log.info("发送邮件成功！");
 				transport.close();
-
 				return true;
 		}
 		catch(Exception e){

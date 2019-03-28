@@ -64,7 +64,7 @@ public class UserController {
         surveysService.insert(surveys);
 
         User user = userService.selectById(sessionUserId);
-        user.setPossess(1);
+        user.setPossess(user.getPossess()+1);
         userService.updateById(user);
 
         HashMap<String, String> surveyMap = JSONStrUtils.forSurveyMessage(page);
@@ -82,7 +82,5 @@ public class UserController {
 
         return new ReturnMessage(true, true);
     }
-
-
 }
 

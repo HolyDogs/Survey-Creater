@@ -12,6 +12,7 @@ import com.me.service.SurveysService;
 import com.me.service.TableService;
 import com.me.utils.AnalyzeUtils;
 import com.me.utils.RedisUtil;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -24,6 +25,7 @@ import java.util.*;
  * @Data 2019/3/3 21:25
  * @Version 1.0
  **/
+@Slf4j
 @RestController
 public class ResultController {
 
@@ -100,7 +102,7 @@ public class ResultController {
                 title = (jsonObject.getString("title")==null ? question:jsonObject.getString("title"));
                 type = AnalyzeUtils.typeAnalyze(jsonObject.getString("type"));
 
-                if (type.equals("bar")){
+                if (("bar").equals(type)){
                     count = new ArrayList<>(16);
                     items = new ArrayList<>(16);
                     JSONArray jsonArray = jsonObject.getJSONArray("choices");
@@ -314,7 +316,7 @@ public class ResultController {
                             Iterator iterator1 = hashMap2.entrySet().iterator();
                             while (iterator1.hasNext()){
                                 Map.Entry entry = (Map.Entry) iterator1.next();
-                                System.out.println(entry.getKey()+"=========="+entry.getValue());
+                                log.info(entry.getKey()+"=========="+entry.getValue());
                             }
                         }
                         */
@@ -327,7 +329,5 @@ public class ResultController {
         }
         return new AnalyzeResult(true);
     }
-
-
 
 }
