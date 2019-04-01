@@ -1,7 +1,7 @@
 <template>
 	<div class="mainDiv" v-bind:style="{height:theHeight}">
-		<div class="container">
-            <div style="text-align: center;padding-top: 20px">
+		<div class="hcontainer">
+            <div style="text-align: center;padding-top: 20px;">
                 <h1 v-if=name>
                     您好,{{name}},欢迎使用本系统
                 </h1>
@@ -17,8 +17,8 @@
             <div class="slide slide--6"><h3>还等什么，马上点击右上方START开始吧！</h3></div>
         </agile>
 
-        <h2 style="text-align: center;color: yellow;">相关技术</h2>
-        <div class="container">
+        <h1 style="text-align: center;color: yellow;">技术支持</h1>
+        <div class="ccontainer">
             <div class="row clearfix myDiv1">
                 <div class="col-md-4 column">
                     <h2>
@@ -55,7 +55,6 @@
                 </div>
             </div>
         </div>
-        
     </div>
 </template>
 
