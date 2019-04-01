@@ -7,7 +7,7 @@
         <button v-show="startFlag" class="arrow arrow-right btn" :disabled="rightFlag" @click="forRight"></button>
         <fullscreen ref="fullscreen" :fullscreen.sync="fullscreen">
         <div class="analyzeDiv">
-            <div class="chart" id="myChart" v-show="pie" :style="{width: '500px', height: '500px'}"></div>
+            <div class="chart" id="myChart" v-show="pie" :style="{width: '700px', height: '500px'}"></div>
             <div class="chart" id="myChartB" v-show="bar" :style="{width: '500px', height: '500px'}"></div>
             <div class="chart" id="myChartC" v-show="thrd" :style="{width: '700px', height: '700px'}"></div>
             <div class="vchart" v-if="vchart"><h4>{{title}}</h4><ve-line class="vchartC" :loading="loading" :extend="extend" :data="vchartData"></ve-line></div>
