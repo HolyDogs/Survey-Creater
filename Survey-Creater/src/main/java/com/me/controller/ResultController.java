@@ -198,7 +198,11 @@ public class ResultController {
                     items.add("columns");
                     while (rowItor.hasNext()){
                         Object o = rowItor.next();
-                        items.add(o.toString());
+                        if (o instanceof JSONObject){
+                            items.add(((JSONObject) o).getString("value"));
+                        }else{
+                            items.add(o.toString());
+                        }
                     }
                     Iterator iterator = jsonArray.iterator();
                     while (iterator.hasNext()){
