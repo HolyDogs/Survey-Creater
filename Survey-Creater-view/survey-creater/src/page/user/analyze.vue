@@ -1,4 +1,4 @@
-<style type="text/css" src="@/style/user/analyze.css"></style>
+<style type="text/css" src="@/style/user/analyze.css" scoped></style>
 
 <template>
     <div class="maxDiv"  v-bind:style="{height: theight}">
