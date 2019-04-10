@@ -208,6 +208,9 @@ public class ResultController {
                     while (iterator.hasNext()){
                         HashMap<String,Object> hashMap = new HashMap<>(16);
                         Object o = iterator.next();
+                        if (o instanceof JSONObject){
+                            o = ((JSONObject) o).getString("value");
+                        }
                         for(String str : items){
                             if ("columns".equals(str)){
                                 hashMap.put(str,o.toString());
