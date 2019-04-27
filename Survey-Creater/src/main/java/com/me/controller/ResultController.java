@@ -102,6 +102,7 @@ public class ResultController {
                 title = (jsonObject.getString("title")==null ? question:jsonObject.getString("title"));
                 type = AnalyzeUtils.typeAnalyze(jsonObject.getString("type"));
 
+                //直方图类型
                 if (("bar").equals(type)){
                     count = new ArrayList<>(16);
                     items = new ArrayList<>(16);
@@ -125,6 +126,7 @@ public class ResultController {
                     return new AnalyzeResult(true,count,type,title,name,items);
                 }
 
+                //饼状图
                 if (("pie").equals(type)){
                     data = new ArrayList<>(8);
                     bmap = new LinkedHashMap<>(4);
@@ -143,6 +145,7 @@ public class ResultController {
                     return new AnalyzeResult(true,type,title,data);
                 }
 
+                //饼状图，不同的问题类型需要的数据处理
                 if (("rpie").equals(type) || ("dpie").equals(type)){
                     data = new ArrayList<>(16);
                     JSONArray jsonArray = ("rpie").equals(type)?jsonObject.getJSONArray("rateValues"):jsonObject.getJSONArray("choices");
@@ -169,6 +172,7 @@ public class ResultController {
                     return new AnalyzeResult(true,type,title,data);
                 }
 
+                //同上
                 if(("cpie").equals(type)){
                     data = new ArrayList<>(16);
                     JSONArray jsonArray = jsonObject.getJSONArray("choices");
@@ -189,6 +193,7 @@ public class ResultController {
                     return new AnalyzeResult(true,type,title,data);
                 }
 
+                //折线图
                 if(("line").equals(type)){
                     items = new ArrayList<>(16);
                     data =  new ArrayList<>(16);
@@ -223,6 +228,7 @@ public class ResultController {
                     return new AnalyzeResult(true,type,title,items,data);
                 }
 
+                //3D柱状图
                 if (("3DMap").equals(type)){
                     final String COLUMNS = "columns";
                     final String CHOICES = "choices";
@@ -259,6 +265,7 @@ public class ResultController {
                     return new AnalyzeResult(true,type,title,data);
                 }
 
+                //暂时不用
                 if (("3DSMap").equals(type)){
                     final String COLUMNS = "columns";
                     final String CHOICES = "choices";
@@ -291,6 +298,7 @@ public class ResultController {
                     return new AnalyzeResult(true,type,title,data);
                 }
 
+                //若输入框name以map开头，使用地图类型进行分析
                 if (("text").equals(type)){
                     if (question.startsWith("map")){
                         items = tableService.selectColumn(pageId,question);
@@ -316,7 +324,6 @@ public class ResultController {
                             data.add(hashMap1);
                         }
                         type = "tmap";
-
                         //检查list里的值，发现bug
                         /*
                         for(HashMap hashMap2 : data){
@@ -329,8 +336,6 @@ public class ResultController {
                         */
                         return new AnalyzeResult(true,type,title,items,data);
                     }
-
-
                 }
             }
         }

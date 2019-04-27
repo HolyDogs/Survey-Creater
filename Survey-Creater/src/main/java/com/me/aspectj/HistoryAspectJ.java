@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 
 /**
  * @ClassName HistoryAspectJ
- * @Description TODO
+ * @Description 操作记录增强类
  * @Author xufeng
  * @Data 2019/3/11 9:17
  * @Version 1.0
@@ -63,11 +63,11 @@ public class HistoryAspectJ {
                 break;
             case "createSurvey":
                 redisUtil.hset(time,"title", TokenCreater.parseJWT((String) args[3]).get("id"));
-                redisUtil.hset(time,"content","创建调查页面id="+args[1]);
+                redisUtil.hset(time,"content","创建调查问卷id="+args[1]);
                 break;
             case "deleteSurvey":
                 redisUtil.hset(time,"title",TokenCreater.parseJWT((String) args[1]).get("id"));
-                redisUtil.hset(time,"content","删除调查id="+args[0],259200);
+                redisUtil.hset(time,"content","删除调查问卷id="+args[0],259200);
                 break;
         }
     }
