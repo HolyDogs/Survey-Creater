@@ -10,6 +10,10 @@ import com.me.service.UserService;
 import com.me.utils.CheckCodeUtills;
 import com.me.utils.RedisUtil;
 import com.me.utils.SendEmailUtils;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -29,6 +33,7 @@ import java.util.HashMap;
  * @about ->
  **/
 
+@Api(description = "登录API接口")
 @RestController
 @Slf4j
 public class LoginController {
@@ -38,6 +43,10 @@ public class LoginController {
     @Autowired
     private RedisUtil redisUtil;
 
+    @ApiOperation(value = "登录", notes = "就登录")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "email", value = "邮箱", required = true, dataType = "String")
+    })
     @RequestMapping("/login")
     @ResponseBody
     public HashMap forLogin(@RequestParam("email")String email, @RequestParam("password")String password,HttpSession session) throws UnsupportedEncodingException, NoSuchAlgorithmException {
