@@ -2,7 +2,7 @@
 
 
 ## 简介
-本项目致力于解决问卷调查以及结果分析的一体化，为了提供更好的分析体验，将[SurveyJS](https://github.com/surveyjs/surveyjs)库与[ECharts](https://www.echartsjs.com/index.html)、[V-Charts](https://codesandbox.io/s/z69myovqzx)等技术结合，通过数据处理以达到优雅地搭配使用体验。另外，该项目还增添了大致的用户管理功能，管理员用户可对普通用户的敏感操作进行查阅，并删除相关的用户。
+项目用于问卷调查及结果分析，使用[SurveyJS](https://github.com/surveyjs/surveyjs)与[ECharts](https://www.echartsjs.com/index.html)、[V-Charts](https://codesandbox.io/s/z69myovqzx)等技术。外搭粗糙的用户管理功能。
 
 
 ## 运行环境
@@ -90,7 +90,7 @@
 
 ![](http://ww1.sinaimg.cn/large/006azB5Sly1g0zt5bkbdqj31hc0gfaby.jpg)
 
-## 相关技术文档
+## 相关文档
 
 >SurveyJS https://surveyjs.io/Documentation/Library/
 
@@ -101,4 +101,4 @@
 
 ## 友情链接
 
->我的博客 http://xfff.xyz
+>My Blog http://xfff.xyz
